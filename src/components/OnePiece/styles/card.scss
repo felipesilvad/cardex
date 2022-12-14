@@ -1,0 +1,231 @@
+.card__img{
+  width: -webkit-fill-available;
+}
+
+.bg-Red {
+  background-color: $red;
+  color: white;
+}
+.bg-Green {
+  background-color: $green;
+  color: white;
+}
+.bg-dblue {
+  background-color: $dblue;
+  color: white;
+}
+.bg-Gray {
+  background-color: $gray;
+  color: white;
+  border: 0.1rem solid $dblue;
+  -webkit-box-shadow: inset 0 0 15px #2c364a;
+  -moz-box-shadow: inset 0 0 15px #2c364a;
+  box-shadow: inset 0 0 15px #2c364a;
+}
+
+.bg-Strike {
+  background-color: $strike;
+  color: white;
+}
+.bg-Ranged {
+  background-color: $ranged;
+  color: white;
+}
+.bg-Special {
+  background-color: $special;
+  color: white;
+}
+.bg-Wisdom {
+  background-color: $wisdom;
+  color: white;
+}
+.bg-Slash {
+  background-color: $slash;
+  color: white;
+}
+
+.card__title{
+  font-weight: 400;
+  text-align: center;
+  padding-top: 0.3rem;
+  font-size: 2.4rem;
+}
+
+.card__sub-title{
+  text-align: center;
+  font-size: 1.2rem;
+  padding-bottom: 0.5rem;
+}
+
+.card__stat_row-top {
+  margin-top: -0.5rem!important;
+}
+
+.card__stat_row-fields {
+  font-size: 1.3rem;
+}
+
+.card__stat_row-values {
+  font-size: 1.5rem;
+}
+
+.card_stat-border-l {
+  border-left: 0.1rem solid $dblue;
+}
+
+.card_stat-border-r {
+  border-right: 0.1rem solid $dblue;
+}
+
+.att-img{
+  width: 1.8rem;
+  margin-top: -0.5rem;
+  margin-right: 0.5rem
+}
+
+.card__effect {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin: 0 0.25rem;
+}
+
+.effect_blue {
+  background-color: rgb(0, 112, 176);
+  border-radius: 0.4rem;
+  padding: 0.2rem 0.4rem;
+}
+.effect_pink {
+  background-color: rgb(222, 65, 99);
+  border-radius: 1.2rem;
+  padding: 0.2rem 0.4rem;
+}
+.effect_black {
+  background-color: black;
+  border-radius: 1.2rem;
+  padding: 0.2rem 0.4rem;
+}
+.effect_orange {
+  background-color: #E87922;
+  border-radius: 0.2rem;
+  padding: 0.2rem 0.4rem;
+  margin: 0 0.2rem 0 -0.2rem;
+}
+.effect_red {
+  background-color: #DD0010;
+  border-radius: 0.3rem;
+  padding: 0.2rem 0.4rem;
+  padding: 0.2rem 0.4rem;
+}
+
+.card__field {
+  font-size: 1rem!important;
+  text-transform: uppercase;
+  background-color: black;
+  text-align: left;
+  padding:0 0.6rem;
+  font-weight: 900;
+  z-index: 1;
+  position: absolute;
+}
+
+.card__cost{
+  border-radius: 5rem;
+  padding: 0 0.8rem 0 0.8rem;
+  font-size: 2rem;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 900;
+}
+
+.card__power{
+  border-radius: 0.3rem;
+  padding: 0 0.8rem 0 0.8rem;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.card__color{
+  border-radius: 0.3rem;
+  padding: 0 0.8rem 0 0.8rem;
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+
+.card__rarity{
+  border-radius: 5rem;
+  padding: 0 0.8rem 0 0.8rem;
+  font-size: 1.8rem;
+  font-weight: 800;
+  font-family: 'Roboto', sans-serif;
+  background-color: white;
+  color: black;
+}
+
+.card__att-img {
+  width: 2.4rem;
+  z-index: 1;
+  position: absolute;
+  margin-left: -0.6rem;
+  margin-top: 0.3rem;
+}
+
+.card__att{
+  border-radius: 0.4rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  padding: 0 0.8rem 0 1.8rem;
+  margin-top: -0.4rem;
+  margin-bottom: -0.4rem;
+}
+
+.card__types{
+  border-radius: 0.5rem;
+  font-size: 1.6rem;
+  font-weight: 400;
+  padding: 0 0.8rem 0 1.8rem;
+  background-color: $dblue;
+  color: white;
+  width: 100%;
+  margin-right: 0.4rem;
+}
+
+.card_value {
+  margin-top: 1rem;
+  margin-left: 2rem;
+  z-index: 0;
+}
+
+.card__effect-field {
+  font-size: 1.4rem!important;
+  text-transform: uppercase;
+  background-color: black;
+  font-weight: 900;
+}
+
+.card__effect-value {
+  background-color: $dblue;
+  margin: 0.25rem;
+  border-radius: 0.5rem;
+  padding: 0.25rem;
+}
+
+.card__value-div{
+  border-bottom: 0.1rem solid $dblue;
+  display: flex;
+  padding-top: 0.5rem!important;
+  padding-bottom: 0.5rem!important;
+}
+
+.trigger {
+  background-color: #F9E838;
+  color: black
+}
+
+.set-test {
+  width: -webkit-fill-available;
+  @media only screen and (min-width: $lg) {
+    margin: 1.5rem 4rem;
+  }
+  margin-top: 1.5rem;
+}
