@@ -10,6 +10,35 @@
   background-color: $green;
   color: white;
 }
+.bg-Blue {
+  background-color: $blue;
+  color: white;
+}
+.bg-Purple {
+  background-color: $purple;
+  color: white;
+}
+// .bg-Red-Green {
+//   background: linear-gradient(to right,
+//     $red,$red,$red,
+//     $green,$green,$green,
+//   );
+//   color: white;
+// }
+.bg-Red-Green {
+  background: linear-gradient(to top left,
+    $green 50%,
+    $red 50%
+  );
+  color: white;
+}
+.bg-Blue-Purple {
+  background: linear-gradient(to right,
+    $blue,$blue,$blue,
+    $purple,$purple,$purple,
+  );
+  color: white;
+}
 .bg-dblue {
   background-color: $dblue;
   color: white;
@@ -24,7 +53,7 @@
 }
 
 .bg-Strike {
-  background-color: $strike;
+  background-color: $strike!important;
   color: white;
 }
 .bg-Ranged {
@@ -169,6 +198,12 @@
   margin-top: 0.3rem;
 }
 
+.card__att-img_effect {
+  width: 1.7rem;
+  margin-top: -0.4rem;
+  margin-right: 0.2rem;
+}
+
 .card__att{
   border-radius: 0.4rem;
   font-size: 1.2rem;
@@ -228,4 +263,60 @@
     margin: 1.5rem 4rem;
   }
   margin-top: 1.5rem;
+}
+
+.imgBtn{
+  background-color: #2b416b !important;
+  width: 50%;
+  border-radius: 0.25!important;
+  border-color: $dblue!important;
+  padding: 0.1rem!important;
+  margin-top: -0.25!important;
+  margin-bottom: 0.25rem!important;
+}
+
+.imgBtn:active, imgBtn:hover {
+  background-color: darken(#2b416b, 5%) !important;
+}
+
+.img__nav-item {
+  --bs-nav-tabs-border-width: 1px;
+  --bs-nav-tabs-border-color: #2b416b!important;
+  --bs-nav-tabs-border-radius: 0.2rem!important;
+  --bs-nav-tabs-link-hover-border-color: #2b416b!important;
+  --bs-nav-tabs-link-active-color: blue!important;
+  --bs-nav-tabs-link-active-bg: #2b416b!important;
+  --bs-nav-tabs-link-active-border-color: #2b416b!important;
+  --bs-nav-tabs-link-padding: 0.1rem 0.3rem !important;
+  --bs-nav-tabs-link-font-size: 1.2rem!important;
+  border-bottom: var(--bs-nav-tabs-border-width) solid var(--bs-nav-tabs-border-color);
+}
+
+.img__field {
+  font-size: 1rem !important;
+  background-color: black;
+  text-align: left;
+  padding: 0 0.6rem;
+  font-weight: 400;
+}
+
+.img__value {
+  font-size: 1.2rem !important;
+  font-weight: 900;
+}
+
+.img__src-bg{
+  background-color: #2b416b !important;
+  width: 100%;
+  text-align: center;
+  font-size: 1.2rem;
+  border-radius: 0.2rem;
+  margin-bottom: 0.25rem;
+}
+
+.effect_don-bg {
+  background-color: black;
+  border-radius: 50%;
+  border: 0.1rem solid white;
+  padding: 0 0.35rem;
 }

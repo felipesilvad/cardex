@@ -1,0 +1,77 @@
+.bg-Red, .bg-Red-tl {
+  background-color: $red;
+  color: white;
+}
+.bg-Green, .bg-Green-tl {
+  background-color: $green;
+  color: white;
+}
+.bg-Blue, .bg-Blue-tl {
+  background-color: $blue;
+  color: white;
+}
+.bg-Purple, .bg-Purple-tl {
+  background-color: $purple;
+  color: white;
+}
+.bg-Red-Green {
+  background: linear-gradient(to right,
+    $red,$red,$red,
+    $green,$green,$green,
+  );
+  color: white;
+}
+.bg-Red-Green-tl {
+  background: linear-gradient(to top left,
+    $green 50%,
+    $red 50%
+  );
+  color: white;
+}
+.bg-Blue-Purple {
+  background: linear-gradient(to right,
+    $blue,$blue,$blue,
+    $purple,$purple,$purple,
+  );
+  color: white;
+}
+.bg-Blue-Purple-tl {
+  background: linear-gradient(to top left,
+    $purple 50%,
+    $blue 50%
+  );
+  color: white;
+}
+.bg-dblue {
+  background-color: $dblue;
+  color: white;
+}
+.bg-Gray {
+  background-color: $gray;
+  color: white;
+  border: 0.1rem solid $dblue;
+  -webkit-box-shadow: inset 0 0 15px #2c364a;
+  -moz-box-shadow: inset 0 0 15px #2c364a;
+  box-shadow: inset 0 0 15px #2c364a;
+}
+
+.bg-Strike {
+  background-color: $strike!important;
+  color: white;
+}
+.bg-Ranged {
+  background-color: $ranged;
+  color: white;
+}
+.bg-Special {
+  background-color: $special;
+  color: white;
+}
+.bg-Wisdom {
+  background-color: $wisdom;
+  color: white;
+}
+.bg-Slash {
+  background-color: $slash;
+  color: white;
+}

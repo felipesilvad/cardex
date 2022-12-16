@@ -1,37 +1,45 @@
 import React, { useState, useEffect } from 'react';
 import { doc, onSnapshot } from 'firebase/firestore';
-import db from '../../../firebase';
+import db from '../../../../firebase';
 import {useParams} from 'react-router-dom';
 import { Row, Col, Image, Container} from 'react-bootstrap';
 import OPCardEffect from './OPCardEffect'
 import OPCardSet from './OPCardSet'
+import OPCardImg from './OPCardImg'
 
-import Strike from '../assets/ico_type01.png';
-import Ranged from '../assets/ico_type04.png';
-import Special from '../assets/ico_type03.png';
-import Wisdom from '../assets/ico_type05.png';
-import Slash from '../assets/ico_type02.png';
+import Strike from '../../assets/ico_type01.png';
+import Ranged from '../../assets/ico_type04.png';
+import Special from '../../assets/ico_type03.png';
+import Wisdom from '../../assets/ico_type05.png';
+import Slash from '../../assets/ico_type02.png';
 
 const OPCard = () => {
   const id = useParams().id
   const [card, setCard] = useState([])
-
+  const [color_class, setColorClass] = useState('')
+  
   useEffect(() => {
     onSnapshot(doc(db, "/op/cards/cards/", id), (doc) => {
       setCard(doc.data());
     });
   }, [id]);
 
-  if (card !== []) {
+  useEffect(() => {
+    if (card.color_2) {
+      setColorClass(card.color_1+'-'+card.color_2)
+    } else {setColorClass(card.color)}
+  }, [card]);
+
+  if (card) {
     return (
       <Container>
         <Row>
           <Col sm={4}>
-          <Image className='card__img mb-1' src={card.img} />
+            <OPCardImg card={card} />
           </Col>
           <Col sm={8} className=''>
             <div className='m-1 bg-Gray rounded'>
-              <div className={'br-top bg-'+card.color}>
+              <div className={'br-top bg-'+color_class}>
                 <h4 className='card__title'>{card.title}</h4>
                 <h6 className='card__sub-title'>{card.card_n} {card.title_jp}</h6>
               </div>
@@ -42,7 +50,7 @@ const OPCard = () => {
                       {(card.rarity === "L") ? ('Life:') : ('Cost:')}
                     </span>
                   </div>
-                  <div className={'card__cost card_value bg-'+card.color}>{card.cost}</div>
+                  <div className={'card__cost card_value bg-'+color_class+'-tl'}>{card.cost}</div>
                 </div>
                 {!! card.power &&(
                   (card.power !== " ") ? (
@@ -50,7 +58,7 @@ const OPCard = () => {
                       <div>
                         <span className='card__field'>Power:</span>
                       </div>
-                      <div className={'card__power card_value bg-'+card.color}>{card.power}</div>
+                      <div className={'card__power card_value bg-'+color_class}>{card.power}</div>
                     </div>
                   ) : ('')
                 )}
@@ -59,15 +67,19 @@ const OPCard = () => {
                     <div>
                       <span className='card__field'>Counter:</span>
                     </div>
-                    <div className={'card__power card_value bg-'+card.color}>+{card.counter}</div>
+                    <div className={'card__power card_value bg-'+color_class}>+{card.counter}</div>
                   </div>
                 )}
+
                 <div className='card__value-div'>
                   <div>
                     <span className='card__field'>Color:</span>
                   </div>
-                  <div className={'card__color card_value bg-'+card.color}>{card.color}</div>
+                  <div className={'card__color card_value bg-'+color_class}>
+                    {(card.color_2) ? (card.color_1+'/'+card.color_2) : (card.color)}
+                  </div>
                 </div>
+
                 <div className='card__value-div'>
                   <div>
                     <span className='card__field'>Rarity:</span>
@@ -78,7 +90,7 @@ const OPCard = () => {
                   <div>
                     <span className='card__field'>Card Type:</span>
                   </div>
-                  <div className={'card__color card_value bg-'+card.color}>{card.card_type}</div>
+                  <div className={'card__color card_value bg-'+color_class}>{card.card_type}</div>
                 </div>
                 {!! card.attribute &&(
                   <div className='card__value-div'>
@@ -142,7 +154,7 @@ const OPCard = () => {
               {!! card.set &&(
                 <OPCardSet set_id={card.set} />
               )}
-              
+
             </div>
           </Col>
         </Row>

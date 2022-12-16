@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { doc, onSnapshot } from 'firebase/firestore';
 import {Link} from 'react-router-dom';
-import db from '../../../firebase';
+import db from '../../../../firebase';
 import { Row, Col, Image} from 'react-bootstrap';
 
-const OPCard = ({set_id}) => {
+const OPCardSet = ({set_id}) => {
   const [set, setSet] = useState([])
 
   useEffect(() => {
@@ -26,4 +26,4 @@ const OPCard = ({set_id}) => {
   )
 }
 
-export default OPCard
+export default OPCardSet

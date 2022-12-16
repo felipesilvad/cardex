@@ -3,9 +3,9 @@ import {} from 'react-bootstrap';
 import {Routes, Route, useLocation} from 'react-router-dom'
 import OPHeader from './OPHeader'
 import OPHome from './OPHome'
-import OPCard from './OPCard'
-import OPSet from './OPSet'
-import OPSetList from './OPSetList'
+import OPCard from './Card/OPCard'
+import OPSet from './Set/OPSet'
+import OPSetList from './Set/OPSetList'
 
 function OPApp() {
   const location = useLocation();

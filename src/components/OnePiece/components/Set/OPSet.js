@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { query, collection, onSnapshot, where, doc } from 'firebase/firestore';
-import db from '../../../firebase';
+import db from '../../../../firebase';
 import {Link, useParams} from 'react-router-dom';
-import { Image, Container} from 'react-bootstrap';
+import {Container, Button} from 'react-bootstrap';
 import {} from 'react-bootstrap';
+import OPSetCardGallery from './OPSetCardGallery';
+import OPSetCardTable from './OPSetCardTable';
 
 
 function OPSet() {
   const id = useParams().id
   const [cards, setCards] = useState([])
   const [set, setSet] = useState([])
+  const [view, setView] = useState('Gallery')
 
   useEffect (() => {
     onSnapshot(query(collection(db, `/op/cards/cards`), where("set", "==", id)), (snapshot) => {
@@ -30,7 +33,7 @@ function OPSet() {
           </div>
         </div>
       </div>
-        <div className='bg-Gray rounded'>
+      <div className='bg-Gray rounded d-flex flex-wrap'>
         {!! set.release_date_en &&(
           <div className='card__value-div'>
             <div>
@@ -47,22 +50,33 @@ function OPSet() {
             <div className={'card__power card_value'}>{set.release_date_jp.toDate().toLocaleDateString()}</div>
           </div>
         )}
-      </div>
-      <div className='d-flex flex-wrap'>
-        {(cards !== []) ? (
-          cards.map((card) => (
-            <Link className='set__img' to={`/one-piece/card/${card.card_n}`}>
-              <Image className='card__img' key={card.card_n} src={card.img} />
-            </Link>
-          ))
-        ) : (
-          <div class="d-flex justify-content-center">
-            <div class="spinner-border" role="status">
-              <span class="sr-only">Loading...</span>
-            </div>
+        <div className='card__value-div'>
+          <div>
+            <span className='card__field'>Unique Cards</span>
           </div>
-        )}
+          <div className={'card__power card_value'}>{cards.length}</div>
+        </div>
       </div>
+      
+      <div className='d-flex justify-content-around'>
+        {(view === "Gallery" ? (
+          <Button className='imgBtn set__view-btn view-btn-active' onClick={() => setView('Gallery')}>Gallery</Button>):(
+          <Button className='imgBtn set__view-btn' onClick={() => setView('Gallery')}>Gallery</Button>
+        ))}
+        {(view === "Table" ? (
+          <Button className='imgBtn set__view-btn view-btn-active' onClick={() => setView('Table')}>Table</Button>):(
+          <Button className='imgBtn set__view-btn' onClick={() => setView('Table')}>Table</Button>
+        ))}
+
+      </div>
+      {(view === "Gallery" ? (
+        <div className='d-flex flex-wrap'>
+          <OPSetCardGallery cards={cards} />
+        </div>
+      ) : (
+        <OPSetCardTable cards={cards} />
+      ))}
+
     </Container>
 );
 }

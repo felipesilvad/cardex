@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { query, collection, onSnapshot } from 'firebase/firestore';
-import db from '../../../firebase';
+import db from '../../../../firebase';
 import {Link, useParams} from 'react-router-dom';
 import { Row, Col, Image, Container} from 'react-bootstrap';
 import {} from 'react-bootstrap';

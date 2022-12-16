@@ -19,7 +19,12 @@ def setCard(sh, sheet, set):
   title = ws.acell('B1').value
   title_jp = ws.acell('A1').value
   title_clean = ws.acell('B1').value.replace('.',' ').strip()
-  color = ws.acell('B5').value.replace('Color',' ').strip().split('/')
+  color_txt = ws.acell('B5').value
+  color = color_txt.replace('Color',' ').strip().split('/')
+  color_1 = color[0]
+  color_2 = None
+  if "/" in color_txt:
+    color_2 = color[1]
   card_type = ws.acell('B6').value.replace('Card Type',' ').strip()
   rarity = ws.acell('B7').value.replace('Rarity',' ').strip()
   cost = ws.acell('B8').value.replace('Cost/Life',' ')
@@ -62,7 +67,7 @@ def setCard(sh, sheet, set):
   source = ws.acell('C17').value
   source_P1 = ws.acell('C18').value
   source_P2 = ws.acell('C19').value
-  regulations = ws.acell('A16').value
+  regulations = ws.acell('A15').value
   if regulations:
     regulations = regulations.replace('Legal Regulations',' ')
   img = storage.child("sets").child(set).child("EN").child(f"{card_n}.png").get_url(None)
@@ -75,8 +80,8 @@ def setCard(sh, sheet, set):
   img_P2 = None
   img_P2_jp = None
   if illust_type_P2:
-    img_P1 = storage.child("sets").child(set).child("EN").child(f"{card_n}_P1.png").get_url(None)
-    img_P1_jp = storage.child("sets").child(set).child("JP").child(f"{card_n}_P1.png").get_url(None)
+    img_P2 = storage.child("sets").child(set).child("EN").child(f"{card_n}_P2.png").get_url(None)
+    img_P2_jp = storage.child("sets").child(set).child("JP").child(f"{card_n}_P2.png").get_url(None)
 
   doc_ref = db.collection(u'op').document(u'cards').collection(u'cards').document(card_n)
   doc_ref.set({
@@ -85,7 +90,7 @@ def setCard(sh, sheet, set):
     u'card_n': card_n,
     u'title_jp': title_jp, 
     u'title_clean': title_clean, 
-    u'color': color, 
+    u'color': color, u'color_1':color_1,u'color_2':color_2,
     u'card_type': card_type, 
     u'rarity': rarity, 
     u'cost': cost, 
@@ -108,20 +113,20 @@ def setCard(sh, sheet, set):
   })
   print(card_n,title,' added')
 
-def setSet(set, cards):
+def setSet(set, start,end):
   sh = gc.open(set)
-  for i in range(1, cards+1):
+  for i in range(start, end+1):
     setCard(sh, f'Sheet{i}', set)
     time.sleep(40)
 
-setSet('OP01', 3)
+setSet('OP01', 70, 70)
 
-def testCard(sheet):
-  ws = sh.worksheet(sheet)
-  card_n = ws.acell('B3').value
-  power = ws.acell('B9').value.replace('Power',' ')
-  if power:
-     if power != ' ':
-      power = int(power)
-  print(power)
-# testCard('Sheet14')
+def testCard():
+  color_txt = "ColorRed"
+  color = color_txt.replace('Color',' ').strip().split('/')
+  dual_color = False
+  if "/" in color_txt:
+    dual_color = True
+
+  print(color[0])
+# testCard()
