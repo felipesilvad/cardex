@@ -6,6 +6,7 @@ import OPHome from './OPHome'
 import OPCard from './Card/OPCard'
 import OPSet from './Set/OPSet'
 import OPSetList from './Set/OPSetList'
+import OPSearch from './Search/OPSearch'
 
 function OPApp() {
   const location = useLocation();
@@ -21,6 +22,7 @@ function OPApp() {
             <Route path='/one-piece/card/:id' element={<OPCard />} exact/>
             <Route path='/one-piece/set' element={<OPSetList />} exact/>
             <Route path='/one-piece/set/:id' element={<OPSet />} exact/>
+            <Route path='/one-piece/search' element={<OPSearch />} exact/>
           </Routes>
           Cool
         </div>

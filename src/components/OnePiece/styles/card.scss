@@ -1,78 +1,10 @@
 .card__img{
   width: -webkit-fill-available;
+  border-radius: 1.3rem;
+  @media only screen and (min-width: $lg) {
+    border-radius: 1.5rem;
+  }
 }
-
-.bg-Red {
-  background-color: $red;
-  color: white;
-}
-.bg-Green {
-  background-color: $green;
-  color: white;
-}
-.bg-Blue {
-  background-color: $blue;
-  color: white;
-}
-.bg-Purple {
-  background-color: $purple;
-  color: white;
-}
-// .bg-Red-Green {
-//   background: linear-gradient(to right,
-//     $red,$red,$red,
-//     $green,$green,$green,
-//   );
-//   color: white;
-// }
-.bg-Red-Green {
-  background: linear-gradient(to top left,
-    $green 50%,
-    $red 50%
-  );
-  color: white;
-}
-.bg-Blue-Purple {
-  background: linear-gradient(to right,
-    $blue,$blue,$blue,
-    $purple,$purple,$purple,
-  );
-  color: white;
-}
-.bg-dblue {
-  background-color: $dblue;
-  color: white;
-}
-.bg-Gray {
-  background-color: $gray;
-  color: white;
-  border: 0.1rem solid $dblue;
-  -webkit-box-shadow: inset 0 0 15px #2c364a;
-  -moz-box-shadow: inset 0 0 15px #2c364a;
-  box-shadow: inset 0 0 15px #2c364a;
-}
-
-.bg-Strike {
-  background-color: $strike!important;
-  color: white;
-}
-.bg-Ranged {
-  background-color: $ranged;
-  color: white;
-}
-.bg-Special {
-  background-color: $special;
-  color: white;
-}
-.bg-Wisdom {
-  background-color: $wisdom;
-  color: white;
-}
-.bg-Slash {
-  background-color: $slash;
-  color: white;
-}
-
 .card__title{
   font-weight: 400;
   text-align: center;

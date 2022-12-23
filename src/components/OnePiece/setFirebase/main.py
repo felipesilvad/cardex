@@ -119,7 +119,7 @@ def setSet(set, start,end):
     setCard(sh, f'Sheet{i}', set)
     time.sleep(40)
 
-setSet('OP01', 70, 70)
+setSet('ST04', 1, 17)
 
 def testCard():
   color_txt = "ColorRed"

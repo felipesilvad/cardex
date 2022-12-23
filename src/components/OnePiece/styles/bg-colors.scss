@@ -1,77 +1,111 @@
 .bg-Red, .bg-Red-tl {
-  background-color: $red;
-  color: white;
+  background-color: $red!important;
+  color: white!important;
 }
 .bg-Green, .bg-Green-tl {
-  background-color: $green;
-  color: white;
+  background-color: $green!important;
+  color: white!important;
 }
 .bg-Blue, .bg-Blue-tl {
-  background-color: $blue;
-  color: white;
+  background-color: $blue!important;
+  color: white!important;
 }
 .bg-Purple, .bg-Purple-tl {
-  background-color: $purple;
-  color: white;
+  background-color: $purple!important;
+  color: white!important;
 }
 .bg-Red-Green {
   background: linear-gradient(to right,
     $red,$red,$red,
     $green,$green,$green,
   );
-  color: white;
+  color: white!important;
 }
 .bg-Red-Green-tl {
   background: linear-gradient(to top left,
     $green 50%,
     $red 50%
   );
-  color: white;
+  color: white!important;
 }
 .bg-Blue-Purple {
   background: linear-gradient(to right,
     $blue,$blue,$blue,
     $purple,$purple,$purple,
   );
-  color: white;
+  color: white!important;
 }
 .bg-Blue-Purple-tl {
   background: linear-gradient(to top left,
     $purple 50%,
     $blue 50%
   );
-  color: white;
+  color: white!important;
 }
 .bg-dblue {
-  background-color: $dblue;
-  color: white;
+  background-color: $dblue!important;
+  color: white!important;
 }
 .bg-Gray {
-  background-color: $gray;
-  color: white;
+  background-color: $gray!important;
+  color: white!important;
   border: 0.1rem solid $dblue;
   -webkit-box-shadow: inset 0 0 15px #2c364a;
   -moz-box-shadow: inset 0 0 15px #2c364a;
   box-shadow: inset 0 0 15px #2c364a;
 }
 
+.bg-Light {
+  background-color: $light!important;
+}
+
 .bg-Strike {
   background-color: $strike!important;
-  color: white;
+  color: white!important;
 }
 .bg-Ranged {
-  background-color: $ranged;
-  color: white;
+  background-color: $ranged!important;
+  color: white!important;
 }
 .bg-Special {
-  background-color: $special;
-  color: white;
+  background-color: $special!important;
+  color: white!important;
 }
 .bg-Wisdom {
-  background-color: $wisdom;
-  color: white;
+  background-color: $wisdom!important;
+  color: white!important;
 }
 .bg-Slash {
-  background-color: $slash;
-  color: white;
+  background-color: $slash!important;
+  color: white!important;
+}
+
+.bg-event {
+  background-color: #ad9358!important;
+}
+
+.border-Red {
+  border-color: $red!important;
+}
+.border-Green {
+  border-color: $green!important;
+}
+.border-Blue {
+  border-color: $blue!important;
+}
+.border-Purple {
+  border-color: $purple!important;
+}
+
+.color-Red {
+  color: $red!important;
+}
+.color-Green {
+  color: $green!important;
+}
+.color-Blue {
+  color: $blue!important;
+}
+.color-Purple {
+  color: $purple!important;
 }

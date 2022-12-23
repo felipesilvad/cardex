@@ -60,14 +60,19 @@ function OPCardEffect({effect, i}) {
             .replace("You may trash 1 card from your hand:",`<b>You may trash 1 card from your hand:</b>`)
 
             .replace("DON!! −1",`<b>DON!! −1</b>`)
-
+            .replace("DON!! −2",`<b>DON!! −1</b>`)
+            .replace("DON!! −3",`<b>DON!! −1</b>`)
+            .replace("DON!! −4",`<b>DON!! −1</b>`)
+            .replace("DON!! −5",`<b>DON!! −1</b>`)
+            .replace("DON!! −6",`<b>DON!! −1</b>`)
+            .replace("DON!! −7",`<b>DON!! −1</b>`)
             
             
             .replace("➀",`<b class="effect_don-bg">1</b>`)
             .replace("①",`<b class="effect_don-bg">1</b>`)
+            .replace("➃",`<b class="effect_don-bg">4</b>`)
 
             
-
           }}
         />
       ))
