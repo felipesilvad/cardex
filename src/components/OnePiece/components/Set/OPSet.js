@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { query, collection, onSnapshot, where, doc } from 'firebase/firestore';
 import db from '../../../../firebase';
-import {Link, useParams} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import {Container, Button} from 'react-bootstrap';
-import {} from 'react-bootstrap';
+import {Form,} from 'react-bootstrap';
 import OPSetCardGallery from './OPSetCardGallery';
 import OPSetCardTable from './OPSetCardTable';
 
@@ -13,6 +13,7 @@ function OPSet() {
   const [cards, setCards] = useState([])
   const [set, setSet] = useState([])
   const [view, setView] = useState('Gallery')
+  const [showAA, setShowAA] = useState(false)
 
   useEffect (() => {
     onSnapshot(query(collection(db, `/op/cards/cards`), where("set", "==", id)), (snapshot) => {
@@ -70,8 +71,14 @@ function OPSet() {
 
       </div>
       {(view === "Gallery" ? (
-        <div className='d-flex flex-wrap'>
-          <OPSetCardGallery cards={cards} />
+        <div>
+          <div className='d-flex justify-content-end w-100'>
+            <Form className='d-flex justify-content-end w-100'>
+              <Form.Check type="switch"d="custom-switch"label="Show Alternate Art"
+              className='d-flex justify-content-end aa-switch w-100' onClick={() => setShowAA(!showAA)} />
+            </Form>
+          </div>
+          <OPSetCardGallery cards={cards} showAA={showAA} />
         </div>
       ) : (
         <OPSetCardTable cards={cards} />

@@ -63,6 +63,29 @@ function OPSearch() {
     else {return card.card_type === type}
   }
 
+  // CARD RARITY
+  const [rarity, setRarity] = useState('');
+  const rarityOptions = [
+    { value: '', label: 'Any' },
+    { value: 'C', label: 'C - Common' },
+    { value: 'U', label: 'U - Uncommon' },
+    { value: 'R', label: 'R - Rare' },
+    { value: 'SR', label: 'SR - Super Rare' },
+    { value: 'SEC', label: 'SEC - Secret Rare' },
+    { value: 'L', label: 'L - Leader' },
+
+  ]
+  async function reloadFilterRarity(value) {
+    setLoaging(true)
+    setRarity(value)
+    await sleep(400);
+    setLoaging(false)
+  }
+  function filterRarity(card) {
+    if (rarity === "") {return true} 
+    else {return card.rarity === rarity}
+  }
+
   // COLOR
   const [colors, setColors] = useState([]);
   const [colorParam, setColorParam] = useState('||');
@@ -104,14 +127,17 @@ function OPSearch() {
 
   // ALT ART
   const [altArt, setAltArt] = useState(false);
+  const [showAA, setShowAA] = useState(false)
   async function reloadFilterAltArt() {
     setLoaging(true)
     setAltArt(!altArt)
-    await sleep(400);
+    if(!altArt) {setShowAA(true)}
+    await sleep(400)
     setLoaging(false)
   }
   function filterAltArt(card) {
-    return card.img_P1
+    if (altArt) {return card.img_P1}
+    else {return true}
   }
 
   return (
@@ -130,6 +156,13 @@ function OPSearch() {
             <label>Card Type</label>
             <Select 
               options={typeOptions} onChange={e => reloadFilterType(e.value)}
+              className="Selector" defaultValue={{label: "Any", value: 'Any'}}
+            />
+          </Col>
+          <Col className='px-2'>
+            <label>Card Rarity</label>
+            <Select 
+              options={rarityOptions} onChange={e => reloadFilterRarity(e.value)}
               className="Selector" defaultValue={{label: "Any", value: 'Any'}}
             />
           </Col>
@@ -183,22 +216,30 @@ function OPSearch() {
           <Button className='imgBtn set__view-btn' onClick={() => setView('Table')}>Table</Button>
         ))}
       </div>
+      {(view === "Gallery") ? (
+        <div className='d-flex justify-content-end w-100'>
+          <Form className='d-flex justify-content-end w-100'>
+            <Form.Check type="switch"d="custom-switch"label="Show Alternate Art" checked={showAA}
+            className='d-flex justify-content-end aa-switch w-100' onClick={() => setShowAA(!showAA)} />
+          </Form>
+        </div>
+      ) : ('')}
       {(!loading &&(
         (view === "Gallery" ? (
-          <div className='d-flex flex-wrap'>
-            <OPSetCardGallery altArt={altArt} cards={cards
-              .filter(filterAtt)
-              .filter(filterType)
-              .filter(filterColor)
-              .filter(filterAltArt)
-            } />
-          </div>
+          <OPSetCardGallery showAA={showAA} cards={cards
+            .filter(filterAtt)
+            .filter(filterType)
+            .filter(filterColor)
+            .filter(filterAltArt)
+            .filter(filterRarity)
+          } />
         ) : (
           <OPSetCardTable cards={cards
             .filter(filterAtt)
             .filter(filterType)
             .filter(filterColor)
             .filter(filterAltArt)
+            .filter(filterRarity)
           } />
         ))
       ))}

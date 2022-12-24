@@ -1,21 +1,47 @@
-import React, {useState}  from 'react';
+import React  from 'react';
 import {Link} from 'react-router-dom';
-import { Image} from 'react-bootstrap';
+import {Image} from 'react-bootstrap';
 
-const OPSetCardGallery = ({cards, altArt}) => {
-
+const OPSetCardGallery = ({cards, showAA}) => {
   if (cards) {
     return (
-      cards.map((card) => (
-        <Link key={card.card_n} className='set__img' to={`/one-piece/card/${card.card_n}`}>
-          <div className='set__g_bg'>
-            <Image className='set__card-img' key={card.card_n} 
-              src={(altArt) ? (card.img_P1) : (card.img)} 
-            />
-            <b className='mt-2'>{card.card_n+" - "+card.title}</b>
-          </div>
-        </Link>
-      ))
+      <div className='d-flex flex-wrap'>
+        {cards.map((card) => (
+          <>
+            <Link key={card.card_n} className='set__img' to={`/one-piece/card/${card.card_n}`}>
+              <div className='set__g_bg'>
+                <Image className='set__card-img' src={card.img} />
+                <b className='mt-2'>{card.card_n+" - "+card.title}</b>
+              </div>
+            </Link>
+            {(showAA) ? (
+              <>
+                {((card.img_P1) ? (
+                  ((card.img_P1 !== "") ? (
+                    <Link key={`${card.card_n}_P1`} className='set__img' to={`/one-piece/card/${card.card_n}`}>
+                      <div className='set__g_bg'>
+                        <Image className='set__card-img' src={card.img_P1} />
+                        <b className='mt-2'>{card.card_n+" - "+card.title}</b>
+                      </div>
+                    </Link>
+                  ) : (''))
+                ) : (''))}
+                {((card.img_P2) ? (
+                  ((card.img_P2 !== "") ? (
+                    <Link key={`${card.card_n}_P2`} className='set__img' to={`/one-piece/card/${card.card_n}`}>
+                      <div className='set__g_bg'>
+                        <Image className='set__card-img' src={card.img_P2} />
+                        <b className='mt-2'>{card.card_n+" - "+card.title}</b>
+                      </div>
+                    </Link>
+                  ) : (''))
+                ) : (''))}
+              </>
+            ) : ('')}
+            
+          </>
+        ))}
+      </div>
     )
   } else {
     return (
