@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { query, collection, onSnapshot } from 'firebase/firestore';
 import db from '../../../../firebase';
-import {Row,Col,Spinner,Form,Button} from 'react-bootstrap';
-import OPSetCardGallery from '../Set/OPSetCardGallery';
-import OPSetCardTable from '../Set/OPSetCardTable';
-import Select from 'react-select'
+import {Row,Col,Form,Button} from 'react-bootstrap';
 import {useLocation} from 'react-router-dom';
 import OPSearchSelect from './OPSearchSelect'
+import OPSearchView from './OPSearchView';
 
-function OPSearch() {
+function OPSearch({cd, addCard}) {
   const [cards, setCards] = useState([])
-  const [view, setView] = useState('Gallery')
   const [loading, setLoaging] = useState(false)
-
   useEffect (() => {
     onSnapshot(query(collection(db, `/op/cards/cards`)), (snapshot) => {
       setCards(snapshot.docs.map(doc => ({...doc.data(), id: doc.id})))
@@ -278,72 +274,19 @@ function OPSearch() {
           </Row>
         </div>
       </Col>
-      <Col>
-        <div className="mr-1">
-          <div className='d-flex justify-content-around'>
-            {(view === "Gallery" ? (
-              <Button className='imgBtn set__view-btn view-btn-active' onClick={() => setView('Gallery')}>Gallery</Button>):(
-              <Button className='imgBtn set__view-btn' onClick={() => setView('Gallery')}>Gallery</Button>
-            ))}
-            {(view === "Table" ? (
-              <Button className='imgBtn set__view-btn view-btn-active' onClick={() => setView('Table')}>Table</Button>):(
-              <Button className='imgBtn set__view-btn' onClick={() => setView('Table')}>Table</Button>
-            ))}
-          </div>
-          {(view === "Gallery") ? (
-            <div className='d-flex justify-content-end w-100'>
-              <Form className='d-flex justify-content-end w-100'>
-                <Form.Check type="switch"d="custom-switch"label="Show Alternate Art" checked={showAA}
-                className='d-flex justify-content-end aa-switch w-100' onClick={() => setShowAA(!showAA)} />
-              </Form>
-            </div>
-          ) : ('')}
-          
-          <div className={`bg-Gray-t mx-1 p-1 rounded scrollbar scrollbar-primary search-overflow
-          ${(view === "Gallery" ? ('gallery-vh') : ('table-vh'))}`}>
-            {(cards
-            .filter(filterAtt)
-            .filter(filterType)
-            .filter(filterColor)
-            .filter(filterAltArt)
-            .filter(filterRarity)
-            .filter(filterCost)
-            .filter(filterPower)
-            .filter(filterMain)
-            .length === 0)?(<h5 className='mx-2'>No Cards Found</h5>)
-            :('')}
-            {(!loading &&(
-              (view === "Gallery" ? (
-                <OPSetCardGallery showAA={showAA} cards={cards
-                  .filter(filterAtt)
-                  .filter(filterType)
-                  .filter(filterColor)
-                  .filter(filterAltArt)
-                  .filter(filterRarity)
-                  .filter(filterCost)
-                  .filter(filterPower)
-                  .filter(filterMain)
-                } />
-              ) : (
-                <OPSetCardTable cards={cards
-                  .filter(filterAtt)
-                  .filter(filterType)
-                  .filter(filterColor)
-                  .filter(filterAltArt)
-                  .filter(filterRarity)
-                  .filter(filterCost)
-                  .filter(filterPower)
-                  .filter(filterMain)
-                } />
-              ))
-            ))}
-            {(loading &&(
-              <div className='p-2 text-center'>
-                <Spinner animation="border" variant="danger" />
-              </div>
-            ))}
-          </div>
-        </div>
+      <Col md={9}>
+        <OPSearchView cd={cd} addCard={addCard}
+        loading={loading} showAA={showAA} setShowAA={setShowAA}
+        cards={cards
+        .filter(filterAtt)
+        .filter(filterType)
+        .filter(filterColor)
+        .filter(filterAltArt)
+        .filter(filterRarity)
+        .filter(filterCost)
+        .filter(filterPower)
+        .filter(filterMain)
+      } />
       </Col>
     </Row>
 );

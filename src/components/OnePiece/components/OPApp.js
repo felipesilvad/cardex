@@ -9,6 +9,7 @@ import OPSetList from './Set/OPSetList'
 import OPSearch from './Search/OPSearch'
 import OPSignup from './account/OPSignup'
 import OPAccount from './account/OPAccount'
+import OPCreateDeck from './CreateDeck/OPCreateDeck'
 
 function OPApp() {
   const location = useLocation();
@@ -27,6 +28,7 @@ function OPApp() {
             <Route path='/one-piece/search' element={<OPSearch />} exact/>
             <Route path='/one-piece/signup' element={<OPSignup />} exact/>
             <Route path='/one-piece/account' element={<OPAccount />} exact/>
+            <Route path='/one-piece/create-deck' element={<OPCreateDeck />} exact/>
           </Routes>
         </div>
       </>

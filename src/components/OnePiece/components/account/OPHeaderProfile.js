@@ -38,6 +38,9 @@ const OPHeaderProfile = ({user, userData, logout}) => {
             <Link to="/one-piece/account">
               <div className='header__profile-dd-item'>Account</div>
             </Link>
+            <Link to="/one-piece/create-deck">
+              <div className='header__profile-dd-item'>Create Deck</div>
+            </Link>
             <Link onClick={handleLogout}>
               <div className='header__profile-dd-item'>Logout</div>
             </Link>

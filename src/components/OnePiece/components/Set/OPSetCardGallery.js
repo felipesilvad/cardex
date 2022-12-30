@@ -2,13 +2,16 @@ import React  from 'react';
 import {Link} from 'react-router-dom';
 import {Image} from 'react-bootstrap';
 
-const OPSetCardGallery = ({cards, showAA}) => {
+const OPSetCardGallery = ({cards, showAA, cd,addCard}) => {
   if (cards) {
     return (
       <div className='d-flex flex-wrap'>
         {cards.map((card) => (
           <>
-            <Link key={card.card_n} className='set__img' to={`/one-piece/card/${card.card_n}`}>
+            <Link key={card.card_n} className='set__img' 
+              onClick={(cd &&(addCard(card.card_n)))}
+              to={(!cd &&(`/one-piece/card/${card.card_n}`))}
+            >
               <div className='set__g_bg'>
                 <Image className='set__card-img' src={card.img} />
                 <b className='mt-2'>{card.card_n+" - "+card.title}</b>
@@ -18,7 +21,10 @@ const OPSetCardGallery = ({cards, showAA}) => {
               <>
                 {((card.img_P1) ? (
                   ((card.img_P1 !== "") ? (
-                    <Link key={`${card.card_n}_P1`} className='set__img' to={`/one-piece/card/${card.card_n}`}>
+                    <Link key={`${card.card_n}_P1`} className='set__img'
+                      onClick={(cd &&(addCard(card.card_n)))}
+                      to={(!cd &&(`/one-piece/card/${card.card_n}`))}
+                    >
                       <div className='set__g_bg'>
                         <Image className='set__card-img' src={card.img_P1} />
                         <b className='mt-2'>{card.card_n+" - "+card.title}</b>
@@ -28,7 +34,10 @@ const OPSetCardGallery = ({cards, showAA}) => {
                 ) : (''))}
                 {((card.img_P2) ? (
                   ((card.img_P2 !== "") ? (
-                    <Link key={`${card.card_n}_P2`} className='set__img' to={`/one-piece/card/${card.card_n}`}>
+                    <Link key={`${card.card_n}_P2`} className='set__img' 
+                      onClick={(cd &&(addCard(card.card_n)))}
+                      to={(!cd &&(`/one-piece/card/${card.card_n}`))}
+                    >
                       <div className='set__g_bg'>
                         <Image className='set__card-img' src={card.img_P2} />
                         <b className='mt-2'>{card.card_n+" - "+card.title}</b>
