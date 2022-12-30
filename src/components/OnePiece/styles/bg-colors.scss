@@ -46,6 +46,10 @@
   background-color: $dblue!important;
   color: white!important;
 }
+.bg-dblue-t {
+  background-color: rgba($dblue, 0.7)!important;
+  color: white!important;
+}
 .bg-Gray {
   background-color: $gray!important;
   color: white!important;
@@ -54,7 +58,14 @@
   -moz-box-shadow: inset 0 0 15px #2c364a;
   box-shadow: inset 0 0 15px #2c364a;
 }
-
+.bg-Gray-t {
+  background-color: rgba($gray, 0.8)!important;
+  color: white!important;
+  border: 0.1rem solid $dblue;
+  -webkit-box-shadow: inset 0 0 15px #2c364a;
+  -moz-box-shadow: inset 0 0 15px #2c364a;
+  box-shadow: inset 0 0 15px #2c364a;
+}
 .bg-Light {
   background-color: $light!important;
 }
@@ -108,4 +119,7 @@
 }
 .color-Purple {
   color: $purple!important;
+}
+.color-light {
+  color: $light!important;
 }

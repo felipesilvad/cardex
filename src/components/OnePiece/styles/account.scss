@@ -1,0 +1,25 @@
+.pic-select {
+    width: 6rem;
+    border-radius: 0.5rem;
+    margin: 0.2rem;
+    transition: 300ms;
+}
+
+.pic-select:hover {
+    width: 6.2rem;
+    transition: 300ms;
+}
+
+.pic-select-active {
+    width: 6.2rem;
+    border: 0.2rem solid $highlight;
+    background-color: $highlight;
+    -webkit-box-shadow: inset 0 0 15px #2c364a;
+    -moz-box-shadow: inset 0 0 15px #2c364a;
+    box-shadow: inset 0 0 15px #2c364a;
+}
+
+.change-pic-modal {
+    --bs-modal-bg: rgba($dblue, 0.9)!important;
+    --bs-modal-border-width: 0!important;
+}

@@ -32,7 +32,7 @@
 
 .set__bg {
   border-radius: 0.5rem;
-  background-size: cover;                      /* <------ */
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center center; 
   margin: 0.25rem;
@@ -75,8 +75,8 @@
 .th_n{
   width: 20%;
   text-align: center;
-  @media only screen and (min-width: $lg) {
-    width: 6%;
+  @media only screen and (min-width: $md) {
+    width: 9%;
   }
 }
 
@@ -128,9 +128,9 @@
 
 .set__card-img {
   width: -webkit-fill-available;
-  border-radius: 0.6rem;
+  border-radius: 0.5rem;
   @media only screen and (min-width: $lg) {
-    border-radius: 1rem;
+    border-radius: 0.66rem;
   }
 }
 

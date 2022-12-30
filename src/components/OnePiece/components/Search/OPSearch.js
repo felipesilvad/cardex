@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { query, collection, onSnapshot } from 'firebase/firestore';
 import db from '../../../../firebase';
-import {Container, Button} from 'react-bootstrap';
-import {Row,Col,Spinner,Form} from 'react-bootstrap';
+import {Row,Col,Spinner,Form,Button} from 'react-bootstrap';
 import OPSetCardGallery from '../Set/OPSetCardGallery';
 import OPSetCardTable from '../Set/OPSetCardTable';
 import Select from 'react-select'
+import {useLocation} from 'react-router-dom';
+import OPSearchSelect from './OPSearchSelect'
 
 function OPSearch() {
   const [cards, setCards] = useState([])
@@ -20,6 +21,30 @@ function OPSearch() {
 
   function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  // MAIN
+  const location = useLocation()
+  const [main, setMain] = useState('')
+  useEffect (() => {
+    if (location.state) {
+      setMain(location.state.search)
+    }
+  }, [location])
+  async function reloadFilterMain(value) {
+    setLoaging(true)
+    setMain(value)
+    await sleep(400);
+    setLoaging(false)
+  }
+  function filterMain(card) {
+    if (main === "") {return true}
+    else if (card.title_clean.toLowerCase().includes(main.toLowerCase()) && !card.card_n.toLowerCase().includes(main.toLowerCase()))
+    {return card.title_clean.toLowerCase().includes(main.toLowerCase())}
+    else if (!card.title_clean.toLowerCase().includes(main.toLowerCase()) && card.card_n.toLowerCase().includes(main.toLowerCase()))
+    {return card.card_n.toLowerCase().includes(main.toLowerCase())}
+    else if (card.title_clean.toLowerCase().includes(main.toLowerCase()) && card.card_n.toLowerCase().includes(main.toLowerCase()))
+    {return card.card_n.toLowerCase().includes(main.toLowerCase()) && card.card_n.toLowerCase().includes(main.toLowerCase())}
   }
 
   // ATTRIBUTE
@@ -91,7 +116,6 @@ function OPSearch() {
   const [colorParam, setColorParam] = useState('||');
   async function reloadFilterColors(value) {
     setLoaging(true)
-    console.log(colors.length)
     if (colors.includes(value)) {
       const index = colors.indexOf(value);
       if (index > -1) {colors.splice(index, 1)}
@@ -99,12 +123,10 @@ function OPSearch() {
       if (colors.length > 1) {
         colors.splice(0, 2)
         colors.push(value)
-        console.log('inside',colors, colors.length)
       } else {colors.push(value)}
     }
     await sleep(400);
     setLoaging(false)
-    console.log(colors, colorParam)
   }
   function filterColor(card) {
     if (colors.length === 0) {
@@ -127,7 +149,7 @@ function OPSearch() {
 
   // ALT ART
   const [altArt, setAltArt] = useState(false);
-  const [showAA, setShowAA] = useState(false)
+  const [showAA, setShowAA] = useState(true)
   async function reloadFilterAltArt() {
     setLoaging(true)
     setAltArt(!altArt)
@@ -140,36 +162,57 @@ function OPSearch() {
     else {return true}
   }
 
+  // CARD COST
+  const [cost, setCost] = useState('');
+  async function reloadFilterCost(value) {
+    setLoaging(true)
+    setCost(value)
+    await sleep(400);
+    setLoaging(false)
+  }
+  function filterCost(card) {
+    if (cost === "") {return true} 
+    else {return card.cost === parseInt(cost)}
+  }
+
+  // CARD POWER
+  const [power, setPower] = useState('');
+  async function reloadFilterPower(value) {
+    setLoaging(true)
+    setPower(value)
+    await sleep(400);
+    setLoaging(false)
+  }
+  function filterPower(card) {
+    if (power === "") {return true} 
+    else {return card.power === parseInt(power)}
+  }
+
+
   return (
-    <Container>
-      <h1>Card Search</h1>
-      <div className='bg-Gray rounded'>
-        <Row>
-          <Col className='px-2'>
-            <label>Attribute</label>
-            <Select 
-              options={attOptions} onChange={e => reloadFilterAtt(e.value)}
-              className="Selector" defaultValue={{label: "Any", value: 'Any'}}
-            />
-          </Col>
-          <Col className='px-2'>
-            <label>Card Type</label>
-            <Select 
-              options={typeOptions} onChange={e => reloadFilterType(e.value)}
-              className="Selector" defaultValue={{label: "Any", value: 'Any'}}
-            />
-          </Col>
-          <Col className='px-2'>
-            <label>Card Rarity</label>
-            <Select 
-              options={rarityOptions} onChange={e => reloadFilterRarity(e.value)}
-              className="Selector" defaultValue={{label: "Any", value: 'Any'}}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col md={6} className='px-2'>
-            <label>Color</label>
+    <Row>
+      <Col md={3} className="sidebar">
+        {/* <h1>Card Search</h1> */}
+        <div className='bg-Gray rounded'>
+          <Form.Control className='search-bar' placeholder="Search" 
+          onChange={e => reloadFilterMain(e.target.value)}
+          />
+          <Row>
+            <Col className=''>
+              <label className='search-label'>Attribute</label>
+              <OPSearchSelect options={attOptions} reloadFilter={reloadFilterAtt} />
+            </Col>
+            <Col className=''>
+              <label className='search-label'>Card Type</label>
+              <OPSearchSelect options={typeOptions} reloadFilter={reloadFilterType} />
+            </Col>
+            <Col className=''>
+              <label className='search-label'>Card Rarity</label>
+              <OPSearchSelect options={rarityOptions} reloadFilter={reloadFilterRarity} />
+            </Col>
+          </Row>
+          <div>
+            <label className='search-label'>Color</label>
             <div className='d-flex'>
               <div>
                 <Button className={`search__btn border-Red
@@ -185,71 +228,124 @@ function OPSearch() {
                 ${(colors.includes('Purple') ? ('bg-Purple') : ('bg-Gray color-Purple'))}`}
                 onClick={() => reloadFilterColors('Purple')}>Purple</Button>
               </div>
-              {(colors.length === 2) ? (
-                <div className='bg-Light rounded mx-4 mb-1'>
-                  <Button className={`search__btn border-${colors[0]} bg-${colors[0]}`}>{colors[0]}</Button>
-                  <select className='rounded mt-1' onChange={e => setColorParam(e.target.value)}>
-                    <option key="1" value={"||"} selected={(colorParam === "||") ? ("selected") : ('')}>OR</option>
-                    <option key="2" value={"&&"} selected={(colorParam === "&&") ? ("selected") : ('')}>AND</option>
-                  </select>
-                  <Button className={`search__btn border-${colors[1]} bg-${colors[1]}`}>{colors[1]}</Button>
-                </div>
-              ) : ('')}
             </div>
-          </Col>
-          <Col>
-            <Form>
-              <Form.Check type="switch"d="custom-switch"label="Alternate Art"
-              onClick={reloadFilterAltArt}/>
-            </Form>
-          </Col>
-        </Row>
-        
-      </div>
-      <div className='d-flex justify-content-around'>
-        {(view === "Gallery" ? (
-          <Button className='imgBtn set__view-btn view-btn-active' onClick={() => setView('Gallery')}>Gallery</Button>):(
-          <Button className='imgBtn set__view-btn' onClick={() => setView('Gallery')}>Gallery</Button>
-        ))}
-        {(view === "Table" ? (
-          <Button className='imgBtn set__view-btn view-btn-active' onClick={() => setView('Table')}>Table</Button>):(
-          <Button className='imgBtn set__view-btn' onClick={() => setView('Table')}>Table</Button>
-        ))}
-      </div>
-      {(view === "Gallery") ? (
-        <div className='d-flex justify-content-end w-100'>
-          <Form className='d-flex justify-content-end w-100'>
-            <Form.Check type="switch"d="custom-switch"label="Show Alternate Art" checked={showAA}
-            className='d-flex justify-content-end aa-switch w-100' onClick={() => setShowAA(!showAA)} />
-          </Form>
+          </div>
+          {(colors.length === 2) ? (
+            <div>
+              <div className='bg-Light mb-1 px-2 d-flex justify-content-center'>
+                <Button className={`search__btn border-${colors[0]} bg-${colors[0]}`}>{colors[0]}</Button>
+                <select className='rounded mx-3' onChange={e => setColorParam(e.target.value)}>
+                  <option key="1" value={"||"} selected={(colorParam === "||") ? ("selected") : ('')}>OR</option>
+                  <option key="2" value={"&&"} selected={(colorParam === "&&") ? ("selected") : ('')}>AND</option>
+                </select>
+                <Button className={`search__btn border-${colors[1]} bg-${colors[1]}`}>{colors[1]}</Button>
+              </div>
+            </div>
+          ) : ('')}
+          <Row>
+            <Col xs={6}>
+              <div className='px-1 d-flex'>
+                <label className='search-label'>Cost/Life</label>
+                <input
+                  onChange={e => reloadFilterCost(e.target.value)}
+                  className="form-control search-bar" type={'number'}
+                />
+              </div>
+            </Col>
+            <Col xs={6}>
+              <div className='px-1 d-flex'>
+                <label className='search-label'>Power</label>
+                <input
+                  onChange={e => reloadFilterPower(e.target.value)}
+                  className="form-control search-bar" type={'number'}
+                />
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Form>
+                <Form.Check type="switch"d="custom-switch"label="Has Alternate Art"
+                onClick={reloadFilterAltArt}/>
+              </Form>
+            </Col>
+            <Col>
+              <Form>
+                <Form.Check type="switch"d="custom-switch"label="Has Alternate Art"
+                onClick={reloadFilterAltArt}/>
+              </Form>
+            </Col>
+          </Row>
         </div>
-      ) : ('')}
-      {(!loading &&(
-        (view === "Gallery" ? (
-          <OPSetCardGallery showAA={showAA} cards={cards
+      </Col>
+      <Col>
+        <div className="mr-1">
+          <div className='d-flex justify-content-around'>
+            {(view === "Gallery" ? (
+              <Button className='imgBtn set__view-btn view-btn-active' onClick={() => setView('Gallery')}>Gallery</Button>):(
+              <Button className='imgBtn set__view-btn' onClick={() => setView('Gallery')}>Gallery</Button>
+            ))}
+            {(view === "Table" ? (
+              <Button className='imgBtn set__view-btn view-btn-active' onClick={() => setView('Table')}>Table</Button>):(
+              <Button className='imgBtn set__view-btn' onClick={() => setView('Table')}>Table</Button>
+            ))}
+          </div>
+          {(view === "Gallery") ? (
+            <div className='d-flex justify-content-end w-100'>
+              <Form className='d-flex justify-content-end w-100'>
+                <Form.Check type="switch"d="custom-switch"label="Show Alternate Art" checked={showAA}
+                className='d-flex justify-content-end aa-switch w-100' onClick={() => setShowAA(!showAA)} />
+              </Form>
+            </div>
+          ) : ('')}
+          
+          <div className={`bg-Gray-t mx-1 p-1 rounded scrollbar scrollbar-primary search-overflow
+          ${(view === "Gallery" ? ('gallery-vh') : ('table-vh'))}`}>
+            {(cards
             .filter(filterAtt)
             .filter(filterType)
             .filter(filterColor)
             .filter(filterAltArt)
             .filter(filterRarity)
-          } />
-        ) : (
-          <OPSetCardTable cards={cards
-            .filter(filterAtt)
-            .filter(filterType)
-            .filter(filterColor)
-            .filter(filterAltArt)
-            .filter(filterRarity)
-          } />
-        ))
-      ))}
-      {(loading &&(
-        <div className='bg-Gray p-2 text-center'>
-          <Spinner animation="border" variant="danger" />
+            .filter(filterCost)
+            .filter(filterPower)
+            .filter(filterMain)
+            .length === 0)?(<h5 className='mx-2'>No Cards Found</h5>)
+            :('')}
+            {(!loading &&(
+              (view === "Gallery" ? (
+                <OPSetCardGallery showAA={showAA} cards={cards
+                  .filter(filterAtt)
+                  .filter(filterType)
+                  .filter(filterColor)
+                  .filter(filterAltArt)
+                  .filter(filterRarity)
+                  .filter(filterCost)
+                  .filter(filterPower)
+                  .filter(filterMain)
+                } />
+              ) : (
+                <OPSetCardTable cards={cards
+                  .filter(filterAtt)
+                  .filter(filterType)
+                  .filter(filterColor)
+                  .filter(filterAltArt)
+                  .filter(filterRarity)
+                  .filter(filterCost)
+                  .filter(filterPower)
+                  .filter(filterMain)
+                } />
+              ))
+            ))}
+            {(loading &&(
+              <div className='p-2 text-center'>
+                <Spinner animation="border" variant="danger" />
+              </div>
+            ))}
+          </div>
         </div>
-      ))}
-
-    </Container>
+      </Col>
+    </Row>
 );
 }
 

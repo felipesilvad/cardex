@@ -2,6 +2,15 @@
   color: black!important;
 }
 
+.sidebar {
+  width: 50%;
+  background-color: $dblue;
+}
+
+.search-view {
+  width: 50%;
+}
+
 .search__btn {
   padding: 0.25rem 0.5rem!important;
   border-radius: 0!important;
@@ -14,4 +23,87 @@
   text-transform: uppercase;
   text-align: end;
   margin: 0 1rem;
+}
+
+.search-bar {
+  background-color: $dblue!important;
+  border-color: $light!important;
+  color: lighten($light, 40)!important;
+}
+
+.search-bar:focus {
+  background-color: $dblue!important;
+  border-color: lighten($light, 20)!important;
+  color: lighten($light, 40)!important;
+  box-shadow: none!important;
+}
+
+.search-bar__button{
+  color: lighten($light, 40)!important;
+  border-color: $light!important;
+}
+
+.search-label {
+  margin: 0.2rem;
+}
+
+.tab-content::-webkit-scrollbar-thumb {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  background-color: $highlight;
+  border-radius: 10px;
+}
+.gallery-vh {
+  height: 76vh;
+}
+.table-vh {
+  height: 81.4vh;
+}
+
+.search-overflow {
+  overflow: auto;
+}
+
+.search-overflow::-webkit-scrollbar {
+  width: 0.4rem;
+  background-color: $dblue;
+  border-radius: 10px;
+}
+
+.search-overflow::-webkit-scrollbar-thumb {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  background-color: $highlight;
+  border-radius: 10px;
+}
+
+
+.search-select {
+  background-color: $dblue!important;
+  border-color: $light!important;
+  color: lighten($light, 40)!important;
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.5rem;
+}
+
+.search-select:focus {
+  border-color: lighten($light, 20)!important;
+}
+
+.search-select-option {
+  border-color: $light!important;
+}
+.search-select-option:hover {
+  background-color: $dblue!important;
+}
+
+.search-select.decorated option:hover {
+  box-shadow: 0 0 10px 100px wheat inset!important;
+}
+select.decorated option:hover {
+  box-shadow: 0 0 10px 100px red inset;
+}
+
+
+.form-check-input:checked {
+  background-color: $highlight!important;
+  border-color: $highlight!important;
 }

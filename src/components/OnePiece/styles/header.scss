@@ -2,7 +2,7 @@
   background-color: $gray;
   display: flex;
   position: fixed!important;
-  top: 0; /* Position the navbar at the top of the page */
+  top: 0;
   width: 100%;
   padding: 0rem!important;
   z-index: 5;
@@ -34,4 +34,66 @@
 .card__set_box:hover {
   background-color: lighten(black, 10%);
   transition: 150ms;
+}
+
+.header__pp {
+  width: 3rem;
+  border-radius: 0.2rem;
+}
+
+.header__nl{
+  height: 100%;
+  text-transform: uppercase;
+  --bs-nav-tabs-border-color: #2b416b!important;
+  --bs-nav-tabs-border-radius: 0.2rem!important;
+  --bs-nav-tabs-link-hover-border-color: #2b416b!important;
+  --bs-nav-tabs-link-active-color: blue!important;
+  --bs-nav-tabs-link-active-bg: #2b416b!important;
+  --bs-nav-tabs-link-active-border-color: #2b416b!important;
+  --bs-nav-tabs-link-padding: 0.3rem 0.3rem !important;
+  --bs-nav-tabs-link-font-size: 1.4rem!important;
+  transition: 500ms;
+}
+
+.header-container {
+  max-width: 1140px;
+  display: flex;
+  flex-wrap: inherit;
+}
+
+.header__profile{
+  color: white;
+  font-family: 'Oswald', sans-serif;
+}
+
+.header__profile_name{
+  font-size: 1.4rem;
+  margin: 0.3rem;
+}
+
+.header__profile-dd {
+  position: absolute;
+  background-color: $gray;
+  list-style-type: none;
+  margin-top: 3rem;
+  border-radius: 0 0.2rem 0 0.2rem;
+  width: 6.5rem;
+}
+
+.header__profile-dd-item{
+  text-align: center;
+  font-size: 1.2rem;
+  transition: 300ms;
+  color: white!important;
+}
+.header__profile-dd-item:hover{
+  background-color: $light;
+  transition: 300ms;
+}
+
+.header__n-user{
+  text-transform: capitalize!important;
+  --bs-nav-tabs-link-font-size: 1.2rem!important;
+  padding: 3.2rem;
+  transition: 300ms;
 }

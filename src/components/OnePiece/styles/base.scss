@@ -6,6 +6,7 @@
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
+  min-height: 100vh;
   @media only screen and (min-width: $lg) {
     padding-top: 4rem;
   }
