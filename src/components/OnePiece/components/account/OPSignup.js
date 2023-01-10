@@ -40,11 +40,9 @@ const OPSignup = () => {
 
     if (users.includes(username)) {
       setError('Username already taken')
-    }
-    if (username.length > 20) {
+    } else if (username.length > 20) {
       setError('Username too long')
-    } 
-    if (error==='') {
+    } else {
       try{
         await createUser(email,password).then((userCredential) => {
           setDoc(doc(db, "users", userCredential.user.uid), {
@@ -55,6 +53,7 @@ const OPSignup = () => {
             profile_pic_url: selectedPicUrl,
             createdAt: newDate,
           })
+          setDoc(doc(db, "op/decks/draftdecks", userCredential.user.uid), {user: userCredential.user.uid, cards: []}, { merge: true})
         })
         navigate('/one-piece')
       }catch (e) {
