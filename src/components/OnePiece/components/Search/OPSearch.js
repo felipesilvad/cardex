@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { query, collection, onSnapshot } from 'firebase/firestore';
 import db from '../../../../firebase';
-import {Row,Col,Form,Button} from 'react-bootstrap';
+import {Row,Col,Form,Button,Container} from 'react-bootstrap';
 import {useLocation} from 'react-router-dom';
 import OPSearchSelect from './OPSearchSelect'
 import OPSearchView from './OPSearchView';
@@ -186,8 +186,10 @@ function OPSearch({cd, addCard}) {
 
 
   return (
-    <Row>
-      <Col md={3} className="sidebar">
+    <Container
+      className={cd&&('cd__search-container mx-2')}
+    >
+      <div className="search-bg">
         {/* <h1>Card Search</h1> */}
         <div className='bg-Gray rounded'>
           <Form.Control className='search-bar' placeholder="Search" 
@@ -207,37 +209,44 @@ function OPSearch({cd, addCard}) {
               <OPSearchSelect options={rarityOptions} reloadFilter={reloadFilterRarity} />
             </Col>
           </Row>
-          <div>
-            <label className='search-label'>Color</label>
-            <div className='d-flex'>
+
+          {/* COLOR */}
+          <Row>
+            <Col>
               <div>
-                <Button className={`search__btn border-Red
-                ${(colors.includes('Red') ? ('bg-Red') : ('bg-Gray color-Red'))}`}
-                onClick={() => reloadFilterColors('Red')}>Red</Button>
-                <Button className={`search__btn border-Green
-                ${(colors.includes('Green') ? ('bg-Green') : ('bg-Gray color-Green'))}`}
-                onClick={() => reloadFilterColors('Green')}>Green</Button>
-                <Button className={`search__btn border-Blue
-                ${(colors.includes('Blue') ? ('bg-Blue') : ('bg-Gray color-Blue'))}`}
-                onClick={() => reloadFilterColors('Blue')}>Blue</Button>
-                <Button className={`search__btn border-Purple
-                ${(colors.includes('Purple') ? ('bg-Purple') : ('bg-Gray color-Purple'))}`}
-                onClick={() => reloadFilterColors('Purple')}>Purple</Button>
+                <label className='search-label'>Color</label>
+                <div className='d-flex'>
+                  <div>
+                    <Button className={`search__btn border-Red
+                    ${(colors.includes('Red') ? ('bg-Red') : ('bg-Gray color-Red'))}`}
+                    onClick={() => reloadFilterColors('Red')}>Red</Button>
+                    <Button className={`search__btn border-Green
+                    ${(colors.includes('Green') ? ('bg-Green') : ('bg-Gray color-Green'))}`}
+                    onClick={() => reloadFilterColors('Green')}>Green</Button>
+                    <Button className={`search__btn border-Blue
+                    ${(colors.includes('Blue') ? ('bg-Blue') : ('bg-Gray color-Blue'))}`}
+                    onClick={() => reloadFilterColors('Blue')}>Blue</Button>
+                    <Button className={`search__btn border-Purple
+                    ${(colors.includes('Purple') ? ('bg-Purple') : ('bg-Gray color-Purple'))}`}
+                    onClick={() => reloadFilterColors('Purple')}>Purple</Button>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          {(colors.length === 2) ? (
-            <div>
-              <div className='bg-Light mb-1 px-2 d-flex justify-content-center'>
-                <Button className={`search__btn border-${colors[0]} bg-${colors[0]}`}>{colors[0]}</Button>
-                <select className='rounded mx-3' onChange={e => setColorParam(e.target.value)}>
-                  <option key="1" value={"||"} selected={(colorParam === "||") ? ("selected") : ('')}>OR</option>
-                  <option key="2" value={"&&"} selected={(colorParam === "&&") ? ("selected") : ('')}>AND</option>
-                </select>
-                <Button className={`search__btn border-${colors[1]} bg-${colors[1]}`}>{colors[1]}</Button>
-              </div>
-            </div>
-          ) : ('')}
+              {(colors.length === 2) ? (
+                <div>
+                  <div className='bg-Light mb-1 px-2 d-flex justify-content-center'>
+                    <Button className={`search__btn border-${colors[0]} bg-${colors[0]}`}>{colors[0]}</Button>
+                    <select className='rounded mx-3' onChange={e => setColorParam(e.target.value)}>
+                      <option key="1" value={"||"} selected={(colorParam === "||") ? ("selected") : ('')}>OR</option>
+                      <option key="2" value={"&&"} selected={(colorParam === "&&") ? ("selected") : ('')}>AND</option>
+                    </select>
+                    <Button className={`search__btn border-${colors[1]} bg-${colors[1]}`}>{colors[1]}</Button>
+                  </div>
+                </div>
+              ) : ('')}
+            </Col>
+          </Row>
+          
           <Row>
             <Col xs={6}>
               <div className='px-1 d-flex'>
@@ -273,8 +282,8 @@ function OPSearch({cd, addCard}) {
             </Col>
           </Row>
         </div>
-      </Col>
-      <Col md={9}>
+      </div>
+      <div md={9}>
         <OPSearchView cd={cd} addCard={addCard}
         loading={loading} showAA={showAA} setShowAA={setShowAA}
         cards={cards
@@ -287,9 +296,11 @@ function OPSearch({cd, addCard}) {
         .filter(filterPower)
         .filter(filterMain)
       } />
-      </Col>
-    </Row>
-);
+      </div>
+    </Container>
+  );
+
+  
 }
 
 export default OPSearch;

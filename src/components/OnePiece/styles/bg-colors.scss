@@ -69,6 +69,12 @@
 .bg-Light {
   background-color: $light!important;
 }
+.bg-Light-t {
+  background-color: rgba($light, 0.7)!important;
+}
+.bg-black{
+  background-color: black!important;
+}
 
 .bg-Strike {
   background-color: $strike!important;

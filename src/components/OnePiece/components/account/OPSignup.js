@@ -53,7 +53,6 @@ const OPSignup = () => {
             profile_pic_url: selectedPicUrl,
             createdAt: newDate,
           })
-          setDoc(doc(db, "op/decks/draftdecks", userCredential.user.uid), {user: userCredential.user.uid, cards: []}, { merge: true})
         })
         navigate('/one-piece')
       }catch (e) {

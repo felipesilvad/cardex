@@ -9,7 +9,7 @@ const OPSetCardGallery = ({cards, showAA, cd,addCard}) => {
         {cards.map((card) => (
           <>
             <Link key={card.card_n} className='set__img' 
-              onClick={(cd &&(() => addCard(card, card.card_n)))}
+              onClick={(cd &&(() => addCard(card, '')))}
               to={(!cd &&(`/one-piece/card/${card.card_n}`))}
             >
               <div key={card.card_n} className='set__g_bg'>
@@ -22,7 +22,7 @@ const OPSetCardGallery = ({cards, showAA, cd,addCard}) => {
                 {((card.img_P1) ? (
                   ((card.img_P1 !== "") ? (
                     <Link key={`${card.card_n}_P1`} className='set__img'
-                      onClick={(cd &&(() => addCard(card, card.card_n)))}
+                      onClick={(cd &&(() => addCard(card, '_P1')))}
                       to={(!cd &&(`/one-piece/card/${card.card_n}`))}
                     >
                       <div key={card.card_n} className='set__g_bg'>
@@ -35,7 +35,7 @@ const OPSetCardGallery = ({cards, showAA, cd,addCard}) => {
                 {((card.img_P2) ? (
                   ((card.img_P2 !== "") ? (
                     <Link key={`${card.card_n}_P2`} className='set__img' 
-                      onClick={(cd &&(() => addCard(card, card.card_n)))}
+                      onClick={(cd &&(() => addCard(card, '_P2')))}
                       to={(!cd &&(`/one-piece/card/${card.card_n}`))}
                     >
                       <div key={card.card_n} className='set__g_bg'>
