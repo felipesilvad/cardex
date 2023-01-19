@@ -6,7 +6,7 @@ const OPSearchView = ({cd,addCard,loading,showAA,setShowAA,cards}) => {
   const [view, setView] = useState('Gallery')
 
   return (
-    <div className="mr-1">
+    <div className="mr-1 w-100">
       <div className='d-flex justify-content-around'>
         {!cd &&(<>
           {(view === "Gallery" ? (
@@ -21,9 +21,9 @@ const OPSearchView = ({cd,addCard,loading,showAA,setShowAA,cards}) => {
       </div>
       {(view === "Gallery") ? (
         <div className='d-flex justify-content-end w-100'>
-          <Form className='d-flex justify-content-end w-100'>
+          <Form>
             <Form.Check type="switch"d="custom-switch"label="Show Alternate Art" checked={showAA}
-            className='d-flex justify-content-end aa-switch w-100' onClick={() => setShowAA(!showAA)} />
+            className='aa-switch' onClick={() => setShowAA(!showAA)} />
           </Form>
         </div>
       ) : ('')}
