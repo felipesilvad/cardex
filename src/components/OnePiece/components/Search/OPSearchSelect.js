@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Form from 'react-bootstrap/Form';
 
-function OPSearchSelect({options, reloadFilter}) {
+function OPSearchSelect({options, reloadFilter, id}) {
 
   return (
-    <Form.Select className='search-select' id="select"
+    <Form.Select className='search-select' 
+      id={(id) ? (id) : ("select")}
       onChange={e => reloadFilter(e.target.value)}
-      defaultValue={{label: "Any", value: 'Any'}}
     >
       {options.map((option, i) => (
         <option key={i} className='search-select-option' 

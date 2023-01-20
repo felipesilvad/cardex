@@ -6,7 +6,7 @@ import {useLocation} from 'react-router-dom';
 import OPSearchSelect from './OPSearchSelect'
 import OPSearchView from './OPSearchView';
 
-function OPSearch({cd, addCard}) {
+function OPSearch({cd,addCard,getCardCount,removeCard}) {
   const [cards, setCards] = useState([])
   const [loading, setLoaging] = useState(false)
   useEffect (() => {
@@ -14,7 +14,12 @@ function OPSearch({cd, addCard}) {
       setCards(snapshot.docs.map(doc => ({...doc.data(), id: doc.id})))
     });
   }, [])
-
+  useEffect (() => {
+    onSnapshot(query(collection(db, `/op/cards/cards`)), (snapshot) => {
+      setCards(snapshot.docs.map(doc => ({...doc.data(), id: doc.id})))
+    });
+  }, [])
+  
   function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
@@ -83,6 +88,20 @@ function OPSearch({cd, addCard}) {
     if (type === "") {return true} 
     else {return card.card_type === type}
   }
+  useEffect(() => {
+    if (cd) {
+      setType('Leader')
+      const $select = document.querySelector('#card_type')
+      $select.value = 'Leader'
+      $select.label = 'Leader'
+    }
+  }, [cd]);
+  const resetCardType = () => {
+    setType('')
+    const $select = document.querySelector('#card_type')
+    $select.value = ''
+    $select.label = 'Any'
+  }
 
   // CARD RARITY
   const [rarity, setRarity] = useState('');
@@ -118,8 +137,8 @@ function OPSearch({cd, addCard}) {
     } else {
       if (colors.length > 1) {
         colors.splice(0, 2)
-        colors.push(value)
-      } else {colors.push(value)}
+        setColors(colors => [...colors, value])
+      } else {setColors(colors => [...colors, value])}
     }
     await sleep(400);
     setLoaging(false)
@@ -202,7 +221,7 @@ function OPSearch({cd, addCard}) {
             </Col>
             <Col className=''>
               <label className='search-label'>Card Type</label>
-              <OPSearchSelect options={typeOptions} reloadFilter={reloadFilterType} />
+              <OPSearchSelect id={'card_type'} options={typeOptions} reloadFilter={reloadFilterType} />
             </Col>
             <Col className=''>
               <label className='search-label'>Card Rarity</label>
@@ -284,8 +303,8 @@ function OPSearch({cd, addCard}) {
         </div>
       </div>
       <div md={9}>
-        <OPSearchView cd={cd} addCard={addCard}
-        loading={loading} showAA={showAA} setShowAA={setShowAA}
+        <OPSearchView cd={cd} addCard={addCard} getCardCount={getCardCount} removeCard={removeCard}
+        loading={loading} showAA={showAA} setShowAA={setShowAA} setColors={setColors} resetCardType={resetCardType}
         cards={cards
         .filter(filterAtt)
         .filter(filterType)

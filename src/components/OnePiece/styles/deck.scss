@@ -1,5 +1,14 @@
 .cd__bg {
   border-radius: 0.5rem;
+  position: fixed;
+  width: 29%;
+  margin-left: 1%;
+}
+
+.cd__search-bg {
+  width: 69%;
+  margin-left: 30%;
+  margin-right: 1%;
 }
 
 .cd__added-card {
@@ -33,7 +42,28 @@
 }
 
 .gallery_add_circle {
-  background-color: $dblue;
-  border: 0.1rem solid $gray;
+  background-color: rgba($light, 0.9);
+  border: 0.1rem solid rgba($gray,0.8);
   border-radius: 10rem;
+  z-index: 1;
+  position: absolute;
+  width: 2rem;
+  height: 2rem;
+  padding: 0 0.5rem 0 0.5rem;
+  font-size: 1.23rem;
+  font-weight: 900;
+}
+
+.gac__plus {
+  margin-left: 0.10rem;
+  margin-top: 0.10rem;
+  font-family: "Roboto", sans-serif;
+}
+.gac__count {
+  margin-left: 2.30rem;
+  margin-top: 0.10rem;
+}
+.gac__minus {
+  margin-left: 4.50rem;
+  margin-top: 0.10rem;
 }

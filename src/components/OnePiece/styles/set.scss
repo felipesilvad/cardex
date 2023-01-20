@@ -132,6 +132,7 @@
   @media only screen and (min-width: $lg) {
     border-radius: 0.66rem;
   }
+  z-index: 0;
 }
 
 
@@ -151,4 +152,28 @@
 .set__g-bg-color:hover {
   border-radius: 0.6rem;
   background-color: inherit;
+}
+
+.card_modal__title {
+  color: white!important;
+}
+
+.card_modal {
+  --bs-modal-bg: rgba($dblue, 0.7)!important;
+  --bs-modal-border-width: 0!important;
+  font-family: 'Oswald', sans-serif!important;
+  color: white!important;
+  --bs-modal-width: 1160px!important;
+}
+
+.card_modal__bg {
+  background-color: rgba($dblue, 0.7)!important;
+  padding: 0.5rem;
+  border-radius: 1rem;
+}
+
+.card_modal__close {
+  width: 2em;
+  height: 2em;
+  cursor: pointer;
 }

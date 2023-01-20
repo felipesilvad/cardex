@@ -2,8 +2,22 @@ import React, {useState} from 'react'
 import {Spinner,Form,Button} from 'react-bootstrap';
 import OPSetCardGallery from '../Set/OPSetCardGallery';
 import OPSetCardTable from '../Set/OPSetCardTable';
-const OPSearchView = ({cd,addCard,loading,showAA,setShowAA,cards}) => {
+import OPCardModal from '../Card/OPCardModal';
+
+const OPSearchView = ({cd,addCard,getCardCount,removeCard,loading,showAA,setShowAA,cards,setColors,resetCardType}) => {
   const [view, setView] = useState('Gallery')
+
+  const [cardModal, setCardModal] = useState('')
+  const [cardImg, setCardImg] = useState('')
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const openCardModal = (card,img) => {
+    setCardModal(card)
+    setCardImg(img)
+    handleShow()
+  }
 
   return (
     <div className="mr-1 w-100">
@@ -28,14 +42,15 @@ const OPSearchView = ({cd,addCard,loading,showAA,setShowAA,cards}) => {
         </div>
       ) : ('')}
       
-      <div className={`bg-Gray-t mx-1 p-1 rounded scrollbar scrollbar-primary search-overflow
-      ${(view === "Gallery" ? ('gallery-vh') : ('table-vh'))}`}>
+      <div className={`bg-Gray-t mx-1 p-1 rounded 
+      // ${(view === "Gallery" ? ('') : ('table-vh'))}`}>
         {(cards.length === 0)?(<h5 className='mx-2'>No Cards Found</h5>)
         :('')}
         {(!loading &&(
           (view === "Gallery" ? (
-            <OPSetCardGallery cd={cd} addCard={addCard}
-            showAA={showAA} cards={cards} />
+            <OPSetCardGallery cd={cd} addCard={addCard} getCardCount={getCardCount} removeCard={removeCard}
+            resetCardType={resetCardType} showAA={showAA} cards={cards} setColors={setColors}
+            openCardModal={openCardModal} />
           ) : (
             <OPSetCardTable cards={cards} />
           ))
@@ -46,6 +61,7 @@ const OPSearchView = ({cd,addCard,loading,showAA,setShowAA,cards}) => {
           </div>
         ))}
       </div>
+      <OPCardModal show={show} handleClose={handleClose} card={cardModal} img={cardImg} />
     </div>
   )
 }

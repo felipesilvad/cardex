@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {Row,Col,Button,Form,Modal} from 'react-bootstrap';
+import {Button,Form,Modal} from 'react-bootstrap';
 import OPSearch from '../Search/OPSearch';
 import OPCDAddedCards from './OPCDAddedCards'
 import {collection,addDoc} from "firebase/firestore";
@@ -108,8 +108,8 @@ const OPCreateDeck = () => {
 
 
   return (
-    <Row className='mx-3'>
-      <Col md={3} className='cd__bg bg-dblue-t '>
+    <div>
+      <div className='cd__bg bg-dblue-t '>
 
         <div className='save-deck-bg m-2 p-2'>
           <div>
@@ -134,16 +134,16 @@ const OPCreateDeck = () => {
           <OPCDAddedCards addedCards={addedCards} getDeckLeader={getDeckLeader} getDeck={getDeck}
           removeCard={removeCard} addCard={addCard} deleteCard={deleteCard} getCardCount={getCardCount} /> 
         </div>
-      </Col>
-      <Col md={9}>
-        <OPSearch cd={true} addCard={addCard} />
-      </Col>
+      </div>
+      <div className='cd__search-bg'>
+        <OPSearch cd={true} addCard={addCard} getCardCount={getCardCount} removeCard={removeCard} />
+      </div>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Deck Added</Modal.Title>
         </Modal.Header>
       </Modal>
-    </Row>
+    </div>
   )
 }
 
