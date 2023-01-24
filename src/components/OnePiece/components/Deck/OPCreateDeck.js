@@ -95,31 +95,53 @@ const OPCreateDeck = () => {
     setAddedCards(addedCards.filter(card => card.card_n !== card_n))
   }
 
+  const getCardGromId = (id) => {
+    const card = cards.filter((card) => card.card_n === id)
+    if (card !== []) {return card[0]}
+    else {return false}
+  }
+
   const [showImportModal, setShowImportModal] = useState(false);
   const handleOpenImportModal = () => setShowImportModal(true);
   const handleCloseImportModal = () => setShowImportModal(false);
   const [importTextArea, setImportTextArea] = useState('');
   const [importType, setImportType] = useState('List');
 
+  const importDeckTTS = () => {
+    const importedCards = []
+    const array = importTextArea.replace('["','').replace('"]','').split('","')
+    for (const id of array) {
+      const card = getCardGromId(id)
+      if (card) {
+        importedCards.push({card_n:card.card_n,art:'',cost:card.cost,title:card.title,color:card.color,color_1:card.color_1,color_2:card.color_2,card_type:card.card_type})
+      } else (console.log(id,'not found'))
+    }
+    return importedCards
+  }
+
+  const importDeckList = () => {
+    const importedCards = []
+      const lines = importTextArea.split('\n');
+      lines.forEach(line => {
+        for (let i = 0; i < line.split(' ')[0]; i++) {
+          const card = getCardGromId(line.split(' ')[1])
+          if (card) {
+            importedCards.push({card_n:card.card_n,art:'',cost:card.cost,title:card.title,color:card.color,color_1:card.color_1,color_2:card.color_2,card_type:card.card_type})
+          } else (console.log(line.split(' ')[1],'not found'))
+        }
+      });
+    return importedCards
+  }
+
   const importDeck = () => {
-    const addedCardsImport = []
-    const lines = importTextArea.split('\n');
-    lines.forEach(line => {
-      for (let i = 0; i < line.split(' ')[0]; i++) {
-        const card = cards.filter((card) => card.card_n === line.split(' ')[1])
-        if (card) {
-          addedCardsImport.push({card_n:card[0].card_n,art:'',cost:card[0].cost,title:card[0].title,color:card[0].color,color_1:card[0].color_1,color_2:card[0].color_2,card_type:card[0].card_type})
-        } else (console.log('no cards found'))
-      }
-    });
-    // for (const id of array) {
-    //   const card = cards.filter((card) => card.card_n === id)
-    //   if (card) {
-    //     addedCardsImport.push({card_n:card[0].card_n,art:'',cost:card[0].cost,title:card[0].title,color:card[0].color,color_1:card[0].color_1,color_2:card[0].color_2,card_type:card[0].card_type})
-    //   } else (console.log('no cards found'))
-    // }
-    setAddedCards(addedCardsImport)
-    handleCloseImportModal()
+    if (importType === 'List') {
+      setAddedCards(importDeckList())
+      handleCloseImportModal()
+    }
+    if (importType === 'TTS') {
+      setAddedCards(importDeckTTS())
+      handleCloseImportModal()
+    }
   }
 
   const saveDeck = () =>{
@@ -130,8 +152,9 @@ const OPCreateDeck = () => {
         if (addedCards.length < 51) {setError(['danger',`${Math.abs(addedCards.length - 51)} Cards left to complete the Deck`])}
       } else {
         if (checkDeckCardColors() === 0) {
-          addDoc(collection(db, "op/decks/decks"), 
-          {cards: addedCards, title: deckTitle, createdBy:user.uid, createdAt: newDate, leader: getDeckLeader()})
+          // addDoc(collection(db, "op/decks/decks"), 
+          // {cards: addedCards,title: deckTitle, createdBy:user.uid, createdAt: newDate, leader: getDeckLeader().card_n})
+          console.log(addedCards, getDeckLeader().card_n)
           handleShow()
         } else {setError(['danger',`${checkDeckCardColors()} card doesn't match the Leader Colors`])}
       }
@@ -211,10 +234,11 @@ const OPCreateDeck = () => {
             </Col>
           </Row>
           <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-            {/* <Form.Label >Example textarea</Form.Label> */}
             <Form.Control onChange={(e) => setImportTextArea(e.target.value)} as="textarea" rows={10} />
           </Form.Group>
-          <Button className='m-1 cd_button' onClick={() => importDeck()}>CONFIRM</Button>
+          <div className='w-100 d-flex justify-content-end'>
+            <Button className='m-1 cd_button' onClick={() => importDeck()}>CONFIRM</Button>
+          </div>
         </div>
       </Modal>
 
