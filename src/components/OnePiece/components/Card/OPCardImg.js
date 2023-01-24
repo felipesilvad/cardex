@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {Image, Button, Tabs, Tab} from 'react-bootstrap';
+import OPCardImgSource from './OPCardImgSource';
 
 function OPCardImg({card}) {
   const [imgJP, setImgJP] = useState(false)
@@ -11,14 +12,7 @@ function OPCardImg({card}) {
       <Tabs className="img__nav-item mb-1" defaultActiveKey="main">
         <Tab eventKey="main" title="MAIN ART">
           <Image className='card__img mb-1'src={imgJP ? card.img_jp : card.img}/>
-          <div className='img__src-bg'>
-            {(card.source === "Main") ? (
-              `Main Card Art from ${card.set}`
-            ) : ('')}
-            {(card.source === "Set") ? (
-              `Alternate Card Art from ${card.set}`
-            ) : ('')}
-          </div>
+          <OPCardImgSource img_src={card.source} set={card.set} />
           <Button className='imgBtn' onClick={() => setImgJP(false)}>English Image</Button>
           <Button className='imgBtn' onClick={() => setImgJP(true)}>Japanse Image</Button>
           {!! card.illust_type &&(
@@ -39,17 +33,7 @@ function OPCardImg({card}) {
         {!!card.img_P1&&(
           <Tab eventKey="p1" title="ALTERNATE ART">
             <Image className='card__img mb-1'src={imgJP_P1 ? card.img_P1_jp : card.img_P1}/>
-            <div className='img__src-bg'>
-              {(card.source_P1 === "Main") ? (
-                `Main Card Art from ${card.set}`
-              ) : ('')}
-              {(card.source_P1 === "Set") ? (
-                `Alternate Card Art from ${card.set}`
-              ) : ('')}
-              {(card.source_P1 === "Manga Rare") ? (
-                `Manga Rare Art from ${card.set}`
-              ) : ('')}
-            </div>
+            <OPCardImgSource img_src={card.source_P1} set={card.set} />
             <Button className='imgBtn' onClick={() => setImgJP_P1(false)}>English Image</Button>
             <Button className='imgBtn' onClick={() => setImgJP_P1(true)}>Japanse Image</Button>
             {!! card.illust_type_P1 &&(
@@ -71,17 +55,7 @@ function OPCardImg({card}) {
         {!!card.img_P2&&(
           <Tab eventKey="p2" title="ALTERNATE ART 2">
             <Image className='card__img mb-1'src={imgJP_P2 ? card.img_P2_jp : card.img_P2}/>
-            <div className='img__src-bg'>
-              {(card.source_P2 === "Main") ? (
-                `Main Card Art from ${card.set}`
-              ) : ('')}
-              {(card.source_P2 === "Set") ? (
-                `Alternate Card Art from ${card.set}`
-              ) : ('')}
-              {(card.source_P2 === "Manga Rare") ? (
-                `Manga Rare Art from ${card.set}`
-              ) : ('')}
-            </div>
+            <OPCardImgSource img_src={card.source_P2} set={card.set} />
             <Button className='imgBtn' onClick={() => setImgJP_P2(false)}>English Image</Button>
             <Button className='imgBtn' onClick={() => setImgJP_P2(true)}>Japanse Image</Button>
             {!! card.illust_type_P2 &&(

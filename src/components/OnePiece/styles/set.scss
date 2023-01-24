@@ -177,3 +177,11 @@
   height: 2em;
   cursor: pointer;
 }
+
+.card__set-title{
+  transition: 200ms;
+}
+.card__set-title:hover{
+  color: $highlight;
+  transition: 200ms;
+}

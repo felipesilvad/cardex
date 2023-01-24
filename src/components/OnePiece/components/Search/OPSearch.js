@@ -14,11 +14,6 @@ function OPSearch({cd,addCard,getCardCount,removeCard}) {
       setCards(snapshot.docs.map(doc => ({...doc.data(), id: doc.id})))
     });
   }, [])
-  useEffect (() => {
-    onSnapshot(query(collection(db, `/op/cards/cards`)), (snapshot) => {
-      setCards(snapshot.docs.map(doc => ({...doc.data(), id: doc.id})))
-    });
-  }, [])
   
   function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));

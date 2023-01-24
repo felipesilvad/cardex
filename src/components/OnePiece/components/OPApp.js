@@ -9,7 +9,7 @@ import OPSetList from './Set/OPSetList'
 import OPSearch from './Search/OPSearch'
 import OPSignup from './account/OPSignup'
 import OPAccount from './account/OPAccount'
-import OPCreateDeck from './CreateDeck/OPCreateDeck'
+import OPCreateDeck from './Deck/OPCreateDeck'
 
 function OPApp() {
   const location = useLocation();

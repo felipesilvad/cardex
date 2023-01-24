@@ -9,13 +9,15 @@ const OPSearchView = ({cd,addCard,getCardCount,removeCard,loading,showAA,setShow
 
   const [cardModal, setCardModal] = useState('')
   const [cardImg, setCardImg] = useState('')
+  const [cardImgSrc, setCardImgSrc] = useState('')
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const openCardModal = (card,img) => {
+  const openCardModal = (card,img,img_src) => {
     setCardModal(card)
     setCardImg(img)
+    setCardImgSrc(img_src)
     handleShow()
   }
 
@@ -61,7 +63,7 @@ const OPSearchView = ({cd,addCard,getCardCount,removeCard,loading,showAA,setShow
           </div>
         ))}
       </div>
-      <OPCardModal show={show} handleClose={handleClose} card={cardModal} img={cardImg} />
+      <OPCardModal show={show} handleClose={handleClose} card={cardModal} img={cardImg} img_src={cardImgSrc} />
     </div>
   )
 }

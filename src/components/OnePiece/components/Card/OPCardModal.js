@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import {Button,Modal,Row,Col,Image} from 'react-bootstrap';
 import OPCardEffect from './OPCardEffect';
-import OPCardSet from './OPCardSet'
 import {Link} from 'react-router-dom';
 import {MdClose} from 'react-icons/md';
 import {TbLayoutSidebarRightCollapse} from 'react-icons/tb';
+import OPCardImgSource from './OPCardImgSource';
 
 import Strike from '../../assets/ico_type01.png';
 import Ranged from '../../assets/ico_type04.png';
@@ -12,7 +12,7 @@ import Special from '../../assets/ico_type03.png';
 import Wisdom from '../../assets/ico_type05.png';
 import Slash from '../../assets/ico_type02.png';
 
-const OPCardModal = ({show,handleClose,card,img}) => {
+const OPCardModal = ({show,handleClose,card,img,img_src}) => {
   const [color_class, setColorClass] = useState('')
   
   useEffect(() => {
@@ -27,6 +27,7 @@ const OPCardModal = ({show,handleClose,card,img}) => {
         <Row>
           <Col sm={4}>
             <Image className='set__card-img'src={img}/>
+            <OPCardImgSource img_src={img_src} set={card.set} />
           </Col>
           <Col sm={8} className=''>
             <div className='m-1'>
@@ -147,13 +148,9 @@ const OPCardModal = ({show,handleClose,card,img}) => {
                 </div>
               )}
 
-              {!! card.set &&(
-                <OPCardSet set_id={card.set} />
-              )}
-
             </div>
 
-            <div className='d-flex justify-content-end w-100'>
+            <div className='d-flex mt-3 justify-content-end w-100'>
               <Link to={`/one-piece/card/${card.card_n}`} target="_blank" rel="noopener noreferrer">
                 <Button>See More Details for This Card <TbLayoutSidebarRightCollapse style={{height: "1.5em",width: "1.5em"}} /></Button>
               </Link>

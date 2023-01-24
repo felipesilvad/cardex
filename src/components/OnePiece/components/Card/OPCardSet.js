@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { doc, onSnapshot } from 'firebase/firestore';
 import {Link} from 'react-router-dom';
 import db from '../../../../firebase';
-import { Row, Col, Image} from 'react-bootstrap';
 
 const OPCardSet = ({set_id}) => {
   const [set, setSet] = useState([])
@@ -18,7 +17,7 @@ const OPCardSet = ({set_id}) => {
       <div className='card__value-div'>
         <div>
           <span className='card__set_box d-flex text-white'>SET: 
-            <h3 className='m-1'>{set_id} - {set.title}</h3>
+            <h3 className='m-1 card__set-title'>{set_id} - {set.title}</h3>
           </span>
         </div>
       </div>
