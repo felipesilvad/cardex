@@ -112,3 +112,51 @@
   color: gray;
   font-size: 0.8rem;
 }
+
+.deck_list_i__bg {
+  background-position: center;
+  background-size: cover;
+  margin: 0.2rem;
+  position: relative;
+  min-height: 150px;
+  border-radius: 0.25rem;
+}
+
+.deck_list_i__h {
+  bottom: 0;
+  margin-left: 0.25rem;
+  color: white!important;
+  font-size: 1.4rem;
+}
+
+.deck_list_i__img {
+  width: -webkit-fill-available;
+  border-radius: 0.25rem;
+  bottom: 0;
+}
+
+
+.deck_list_i__gradient {
+  background:  linear-gradient(rgba(black, 0), rgba(black, 0.8),rgba(black, 0.8),rgba(black, 0.8));
+  position: absolute;
+  padding-top: 0.6rem;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  border-radius: 0 0 0.25rem 0.25rem;
+}
+
+.deck_list_i__desc {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+}
+
+.deck_list_i__desc_bg {
+  background-color: rgba(black,0.8);
+  color: white!important;
+  display: flex;
+  justify-content: end;
+}

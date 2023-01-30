@@ -31,6 +31,7 @@ function OPHeader() {
             <Nav.Link className='header__nl' ><Link className='nav-link' to="/one-piece">Home</Link></Nav.Link>
             <Nav.Link className='header__nl' ><Link className='nav-link' to="/one-piece/set">Sets</Link></Nav.Link>
             <Nav.Link className='header__nl' ><Link className='nav-link' to="/one-piece/search">Search</Link></Nav.Link>
+            <Nav.Link className='header__nl' ><Link className='nav-link' to="/one-piece/decks">Decks</Link></Nav.Link>
           </Nav>
         </Navbar.Collapse>
         <OPSearchBar />

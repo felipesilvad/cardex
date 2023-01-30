@@ -95,7 +95,7 @@ const OPCreateDeck = () => {
     setAddedCards(addedCards.filter(card => card.card_n !== card_n))
   }
 
-  const getCardGromId = (id) => {
+  const getCardFromId = (id) => {
     const card = cards.filter((card) => card.card_n === id)
     if (card !== []) {return card[0]}
     else {return false}
@@ -111,7 +111,7 @@ const OPCreateDeck = () => {
     const importedCards = []
     const array = importTextArea.replace('["','').replace('"]','').split('","')
     for (const id of array) {
-      const card = getCardGromId(id)
+      const card = getCardFromId(id)
       if (card) {
         importedCards.push({card_n:card.card_n,art:'',cost:card.cost,title:card.title,color:card.color,color_1:card.color_1,color_2:card.color_2,card_type:card.card_type})
       } else (console.log(id,'not found'))
@@ -124,12 +124,12 @@ const OPCreateDeck = () => {
       const lines = importTextArea.split('\n');
       lines.forEach(line => {
         for (let i = 0; i < line.split(' ')[0]; i++) {
-          const card = getCardGromId(line.split(' ')[1])
+          const card = getCardFromId(line.split(' ')[1])
           if (card) {
             importedCards.push({card_n:card.card_n,art:'',cost:card.cost,title:card.title,color:card.color,color_1:card.color_1,color_2:card.color_2,card_type:card.card_type})
           } else (console.log(line.split(' ')[1],'not found'))
         }
-      });
+      })
     return importedCards
   }
 
@@ -152,9 +152,12 @@ const OPCreateDeck = () => {
         if (addedCards.length < 51) {setError(['danger',`${Math.abs(addedCards.length - 51)} Cards left to complete the Deck`])}
       } else {
         if (checkDeckCardColors() === 0) {
-          // addDoc(collection(db, "op/decks/decks"), 
-          // {cards: addedCards,title: deckTitle, createdBy:user.uid, createdAt: newDate, leader: getDeckLeader().card_n})
-          console.log(addedCards, getDeckLeader().card_n)
+          const deck = []
+          addedCards.forEach(card => {
+            deck.push({id:card.card_n,art:card.art})
+          })
+          addDoc(collection(db, "op/decks/decks"), 
+          {cards: deck,title: deckTitle, createdBy:user.uid, createdAt: newDate, leader: getDeckLeader().card_n,leader_art: getDeckLeader().art})
           handleShow()
         } else {setError(['danger',`${checkDeckCardColors()} card doesn't match the Leader Colors`])}
       }
@@ -183,8 +186,9 @@ const OPCreateDeck = () => {
         </div>
 
         <div className='scrollbar scrollbar-primary search-overflow gallery-vh'>
-          <OPCDAddedCards addedCards={addedCards} getDeckLeader={getDeckLeader} getDeck={getDeck}
-          removeCard={removeCard} addCard={addCard} deleteCard={deleteCard} getCardCount={getCardCount} /> 
+          <OPCDAddedCards addedCards={addedCards} getDeckLeader={getDeckLeader} getDeck={getDeck} 
+          getCardFromId={getCardFromId} getCardCount={getCardCount}
+          removeCard={removeCard} addCard={addCard} deleteCard={deleteCard} /> 
         </div>
       </div>
       <div className='cd__search-bg'>
