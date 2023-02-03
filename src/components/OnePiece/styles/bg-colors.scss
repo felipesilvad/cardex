@@ -129,3 +129,6 @@
 .color-light {
   color: $light!important;
 }
+.color-lighter {
+  color: lighten($light, 55)!important;
+}

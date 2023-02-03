@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { query, collection, onSnapshot, where, doc } from 'firebase/firestore';
+import { query, collection, onSnapshot } from 'firebase/firestore';
 import db from '../../../../firebase';
-import {useParams} from 'react-router-dom';
-import {Container, Row,Col} from 'react-bootstrap';
-import {Form,} from 'react-bootstrap';
+import {Container,Row} from 'react-bootstrap';
 import OPDeckListItem from './OPDeckListItem'
 
 function OPDeckList() {

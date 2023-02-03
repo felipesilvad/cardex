@@ -1,5 +1,5 @@
 import React from 'react';
-import {Col,Image} from 'react-bootstrap';
+import {Col} from 'react-bootstrap';
 import {Link,} from 'react-router-dom';
 import {RiPenNibFill} from 'react-icons/ri';
 import OPDeckAuthor from './OPDeckAuthor';
@@ -9,7 +9,7 @@ function OPDeckListItem({deck}) {
 
   return (
     <Col md={4}>
-      <Link to={`/one-piece/set/${deck.id}`}>
+      <Link to={`/one-piece/decks/${deck.id}`}>
         <div className='deck_list_i__bg pt-2 set-list_img' 
           style={{backgroundImage: `url(${cover})`}}
           >
