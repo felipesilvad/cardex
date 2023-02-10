@@ -12,7 +12,6 @@ function OPDeckCreatedBy({id,createdAt}) {
     });
   }, [id]);
 
-  console.log(user)
   if (user) {
     return (
       <div className='d-flex'>

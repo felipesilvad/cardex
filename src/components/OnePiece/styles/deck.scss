@@ -88,8 +88,7 @@
 
 .import-select {
   background: rgba($gray,0.8);
-  border: solid 0.1rem $dblue;
-  border-radius: 0.5rem;
+  border: solid 0.1rem $dblue;  border-radius: 0.5rem;
   padding: 0.5rem;
   transition: all 200ms;
   cursor: pointer;
@@ -163,4 +162,19 @@
 
 .cost-chart {
   width: 300px!important;
+}
+
+.custom-label__txt {
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 1);
+}
+
+.deck__img-leader {
+  padding: 0.2rem;
+  transition: 400ms;
+  font-size: 1.4rem;
+}
+
+.deck__img-leader:hover {
+  transform: scale(1.02,1.02);
+  transition: 400ms;
 }

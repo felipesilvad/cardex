@@ -1,63 +1,64 @@
-import React from 'react';
-import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import React, {useState,useEffect} from 'react';
+import {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer} from 'recharts';
 
 function OPCostChart({deckCards}) {
+  const [data, setData] = useState([])
 
-  const data = [
-    { name: '1',
-      red: deckCards.filter(card =>card.cost === 1 && (card.color_1 === 'Red' || card.color_2 === 'Red')).length,
-      green: deckCards.filter(card =>card.cost === 1 &&  (card.color_1 === 'Green' || card.color_2 === 'Green')).length,
-      blue: deckCards.filter(card =>card.cost === 1 &&  (card.color_1 === 'Blue' || card.color_2 === 'Blue')).length,
-      purple: deckCards.filter(card =>card.cost === 1 &&  (card.color_1 === 'Purple' || card.color_2 === 'Purple')).length,
-    },{ name: '2',
-      red: deckCards.filter(card =>card.cost === 2 && (card.color_1 === 'Red' || card.color_2 === 'Red')).length,
-      green: deckCards.filter(card =>card.cost === 2 &&  (card.color_1 === 'Green' || card.color_2 === 'Green')).length,
-      blue: deckCards.filter(card =>card.cost === 2 &&  (card.color_1 === 'Blue' || card.color_2 === 'Blue')).length,
-      purple: deckCards.filter(card =>card.cost === 2 &&  (card.color_1 === 'Purple' || card.color_2 === 'Purple')).length,
-    },{ name: '3',
-      red: deckCards.filter(card =>card.cost === 3 && (card.color_1 === 'Red' || card.color_2 === 'Red')).length,
-      green: deckCards.filter(card =>card.cost === 3 &&  (card.color_1 === 'Green' || card.color_2 === 'Green')).length,
-      blue: deckCards.filter(card =>card.cost === 3 &&  (card.color_1 === 'Blue' || card.color_2 === 'Blue')).length,
-      purple: deckCards.filter(card =>card.cost === 3 &&  (card.color_1 === 'Purple' || card.color_2 === 'Purple')).length,
-    },{ name: '4',
-      red: deckCards.filter(card =>card.cost === 4 && (card.color_1 === 'Red' || card.color_2 === 'Red')).length,
-      green: deckCards.filter(card =>card.cost === 4 &&  (card.color_1 === 'Green' || card.color_2 === 'Green')).length,
-      blue: deckCards.filter(card =>card.cost === 4 &&  (card.color_1 === 'Blue' || card.color_2 === 'Blue')).length,
-      purple: deckCards.filter(card =>card.cost === 4 &&  (card.color_1 === 'Purple' || card.color_2 === 'Purple')).length,
-    },{ name: '5',
-      red: deckCards.filter(card =>card.cost === 5 && (card.color_1 === 'Red' || card.color_2 === 'Red')).length,
-      green: deckCards.filter(card =>card.cost === 5 &&  (card.color_1 === 'Green' || card.color_2 === 'Green')).length,
-      blue: deckCards.filter(card =>card.cost === 5 &&  (card.color_1 === 'Blue' || card.color_2 === 'Blue')).length,
-      purple: deckCards.filter(card =>card.cost === 5 &&  (card.color_1 === 'Purple' || card.color_2 === 'Purple')).length,
-    },{ name: '6',
-      red: deckCards.filter(card =>card.cost === 6 && (card.color_1 === 'Red' || card.color_2 === 'Red')).length,
-      green: deckCards.filter(card =>card.cost === 6 &&  (card.color_1 === 'Green' || card.color_2 === 'Green')).length,
-      blue: deckCards.filter(card =>card.cost === 6 &&  (card.color_1 === 'Blue' || card.color_2 === 'Blue')).length,
-      purple: deckCards.filter(card =>card.cost === 6 &&  (card.color_1 === 'Purple' || card.color_2 === 'Purple')).length,
-    },{ name: '7',
-      red: deckCards.filter(card =>card.cost === 7 && (card.color_1 === 'Red' || card.color_2 === 'Red')).length,
-      green: deckCards.filter(card =>card.cost === 7 &&  (card.color_1 === 'Green' || card.color_2 === 'Green')).length,
-      blue: deckCards.filter(card =>card.cost === 7 &&  (card.color_1 === 'Blue' || card.color_2 === 'Blue')).length,
-      purple: deckCards.filter(card =>card.cost === 7 &&  (card.color_1 === 'Purple' || card.color_2 === 'Purple')).length,
-    },{ name: '8',
-      red: deckCards.filter(card =>card.cost === 8 && (card.color_1 === 'Red' || card.color_2 === 'Red')).length,
-      green: deckCards.filter(card =>card.cost === 8 &&  (card.color_1 === 'Green' || card.color_2 === 'Green')).length,
-      blue: deckCards.filter(card =>card.cost === 8 &&  (card.color_1 === 'Blue' || card.color_2 === 'Blue')).length,
-      purple: deckCards.filter(card =>card.cost === 8 &&  (card.color_1 === 'Purple' || card.color_2 === 'Purple')).length,
-    },{ name: '9',
-      red: deckCards.filter(card =>card.cost === 9 && (card.color_1 === 'Red' || card.color_2 === 'Red')).length,
-      green: deckCards.filter(card =>card.cost === 9 &&  (card.color_1 === 'Green' || card.color_2 === 'Green')).length,
-      blue: deckCards.filter(card =>card.cost === 9 &&  (card.color_1 === 'Blue' || card.color_2 === 'Blue')).length,
-      purple: deckCards.filter(card =>card.cost === 9 &&  (card.color_1 === 'Purple' || card.color_2 === 'Purple')).length,
-    },{ name: '10',
-      red: deckCards.filter(card =>card.cost === 10 && (card.color_1 === 'Red' || card.color_2 === 'Red')).length,
-      green: deckCards.filter(card =>card.cost === 10 &&  (card.color_1 === 'Green' || card.color_2 === 'Green')).length,
-      blue: deckCards.filter(card =>card.cost === 10 &&  (card.color_1 === 'Blue' || card.color_2 === 'Blue')).length,
-      purple: deckCards.filter(card =>card.cost === 10 &&  (card.color_1 === 'Purple' || card.color_2 === 'Purple')).length,
-    }
-  ];
-
-
+  useEffect(() => {
+    setData([
+      { name: '1',
+        Red: deckCards.filter(card =>card.cost === 1 && (card.color_1 === 'Red' || card.color_2 === 'Red')).length,
+        Green: deckCards.filter(card =>card.cost === 1 &&  (card.color_1 === 'Green' || card.color_2 === 'Green')).length,
+        Blue: deckCards.filter(card =>card.cost === 1 &&  (card.color_1 === 'Blue' || card.color_2 === 'Blue')).length,
+        Purple: deckCards.filter(card =>card.cost === 1 &&  (card.color_1 === 'Purple' || card.color_2 === 'Purple')).length,
+      },{ name: '2',
+        Red: deckCards.filter(card =>card.cost === 2 && (card.color_1 === 'Red' || card.color_2 === 'Red')).length,
+        Green: deckCards.filter(card =>card.cost === 2 &&  (card.color_1 === 'Green' || card.color_2 === 'Green')).length,
+        Blue: deckCards.filter(card =>card.cost === 2 &&  (card.color_1 === 'Blue' || card.color_2 === 'Blue')).length,
+        Purple: deckCards.filter(card =>card.cost === 2 &&  (card.color_1 === 'Purple' || card.color_2 === 'Purple')).length,
+      },{ name: '3',
+        Red: deckCards.filter(card =>card.cost === 3 && (card.color_1 === 'Red' || card.color_2 === 'Red')).length,
+        Green: deckCards.filter(card =>card.cost === 3 &&  (card.color_1 === 'Green' || card.color_2 === 'Green')).length,
+        Blue: deckCards.filter(card =>card.cost === 3 &&  (card.color_1 === 'Blue' || card.color_2 === 'Blue')).length,
+        Purple: deckCards.filter(card =>card.cost === 3 &&  (card.color_1 === 'Purple' || card.color_2 === 'Purple')).length,
+      },{ name: '4',
+        Red: deckCards.filter(card =>card.cost === 4 && (card.color_1 === 'Red' || card.color_2 === 'Red')).length,
+        Green: deckCards.filter(card =>card.cost === 4 &&  (card.color_1 === 'Green' || card.color_2 === 'Green')).length,
+        Blue: deckCards.filter(card =>card.cost === 4 &&  (card.color_1 === 'Blue' || card.color_2 === 'Blue')).length,
+        Purple: deckCards.filter(card =>card.cost === 4 &&  (card.color_1 === 'Purple' || card.color_2 === 'Purple')).length,
+      },{ name: '5',
+        Red: deckCards.filter(card =>card.cost === 5 && (card.color_1 === 'Red' || card.color_2 === 'Red')).length,
+        Green: deckCards.filter(card =>card.cost === 5 &&  (card.color_1 === 'Green' || card.color_2 === 'Green')).length,
+        Blue: deckCards.filter(card =>card.cost === 5 &&  (card.color_1 === 'Blue' || card.color_2 === 'Blue')).length,
+        Purple: deckCards.filter(card =>card.cost === 5 &&  (card.color_1 === 'Purple' || card.color_2 === 'Purple')).length,
+      },{ name: '6',
+        Red: deckCards.filter(card =>card.cost === 6 && (card.color_1 === 'Red' || card.color_2 === 'Red')).length,
+        Green: deckCards.filter(card =>card.cost === 6 &&  (card.color_1 === 'Green' || card.color_2 === 'Green')).length,
+        Blue: deckCards.filter(card =>card.cost === 6 &&  (card.color_1 === 'Blue' || card.color_2 === 'Blue')).length,
+        Purple: deckCards.filter(card =>card.cost === 6 &&  (card.color_1 === 'Purple' || card.color_2 === 'Purple')).length,
+      },{ name: '7',
+        Red: deckCards.filter(card =>card.cost === 7 && (card.color_1 === 'Red' || card.color_2 === 'Red')).length,
+        Green: deckCards.filter(card =>card.cost === 7 &&  (card.color_1 === 'Green' || card.color_2 === 'Green')).length,
+        Blue: deckCards.filter(card =>card.cost === 7 &&  (card.color_1 === 'Blue' || card.color_2 === 'Blue')).length,
+        Purple: deckCards.filter(card =>card.cost === 7 &&  (card.color_1 === 'Purple' || card.color_2 === 'Purple')).length,
+      },{ name: '8',
+        Red: deckCards.filter(card =>card.cost === 8 && (card.color_1 === 'Red' || card.color_2 === 'Red')).length,
+        Green: deckCards.filter(card =>card.cost === 8 &&  (card.color_1 === 'Green' || card.color_2 === 'Green')).length,
+        Blue: deckCards.filter(card =>card.cost === 8 &&  (card.color_1 === 'Blue' || card.color_2 === 'Blue')).length,
+        Purple: deckCards.filter(card =>card.cost === 8 &&  (card.color_1 === 'Purple' || card.color_2 === 'Purple')).length,
+      },{ name: '9',
+        Red: deckCards.filter(card =>card.cost === 9 && (card.color_1 === 'Red' || card.color_2 === 'Red')).length,
+        Green: deckCards.filter(card =>card.cost === 9 &&  (card.color_1 === 'Green' || card.color_2 === 'Green')).length,
+        Blue: deckCards.filter(card =>card.cost === 9 &&  (card.color_1 === 'Blue' || card.color_2 === 'Blue')).length,
+        Purple: deckCards.filter(card =>card.cost === 9 &&  (card.color_1 === 'Purple' || card.color_2 === 'Purple')).length,
+      },{ name: '10',
+        Red: deckCards.filter(card =>card.cost === 10 && (card.color_1 === 'Red' || card.color_2 === 'Red')).length,
+        Green: deckCards.filter(card =>card.cost === 10 &&  (card.color_1 === 'Green' || card.color_2 === 'Green')).length,
+        Blue: deckCards.filter(card =>card.cost === 10 &&  (card.color_1 === 'Blue' || card.color_2 === 'Blue')).length,
+        Purple: deckCards.filter(card =>card.cost === 10 &&  (card.color_1 === 'Purple' || card.color_2 === 'Purple')).length,
+      }
+    ])
+  }, [deckCards]);
 
   return (
     <div className='mr-3'>
@@ -78,10 +79,10 @@ function OPCostChart({deckCards}) {
 
           <Tooltip />
           {/* <Legend /> */}
-          <Bar dataKey="red" stackId="a" fill="#BE171A" />
-          <Bar dataKey="green" stackId="a" fill="#007A59" />
-          <Bar dataKey="blue" stackId="a" fill="#2D77B5" />
-          <Bar dataKey="purple" stackId="a" fill="#893376" />
+          <Bar dataKey="Red" stackId="a" fill="#BE171A" />
+          <Bar dataKey="Green" stackId="a" fill="#007A59" />
+          <Bar dataKey="Blue" stackId="a" fill="#2D77B5" />
+          <Bar dataKey="Purple" stackId="a" fill="#893376" />
           <XAxis dataKey="name" stroke="white" />
           <YAxis stroke="white" />
         </BarChart>

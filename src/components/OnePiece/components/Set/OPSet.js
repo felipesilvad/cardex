@@ -21,7 +21,6 @@ function OPSet() {
     });
     onSnapshot(doc(db, "/op/sets/sets/", id), (doc) => {
       setSet(doc.data());
-      console.log(doc.data())
     });
   }, [id])
 

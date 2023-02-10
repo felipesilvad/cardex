@@ -12,6 +12,9 @@ import OPAccount from './account/OPAccount'
 import OPCreateDeck from './Deck/OPCreateDeck'
 import OPDeckList from './Deck/OPDeckList'
 import OPDeck from './Deck/OPDeck';
+import OPAddNews from './News/OPAddNews';
+import OPNewsList from './News/OPNewsList';
+import OPNews from './News/OPNews';
 
 function OPApp() {
   const location = useLocation();
@@ -33,6 +36,9 @@ function OPApp() {
             <Route path='/one-piece/signup' element={<OPSignup />} exact/>
             <Route path='/one-piece/account' element={<OPAccount />} exact/>
             <Route path='/one-piece/create-deck' element={<OPCreateDeck />} exact/>
+            <Route path='/one-piece/add-news' element={<OPAddNews />} exact/>
+            <Route path='/one-piece/news' element={<OPNewsList />} exact/>
+            <Route path='/one-piece/news/:id' element={<OPNews />} exact/>
           </Routes>
         </div>
       </>

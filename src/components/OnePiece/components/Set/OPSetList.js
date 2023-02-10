@@ -1,25 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { query, collection, onSnapshot } from 'firebase/firestore';
 import db from '../../../../firebase';
-import {Link, useParams} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import { Row, Col, Image, Container} from 'react-bootstrap';
-import {} from 'react-bootstrap';
 
-
-function OPSet() {
-  const id = useParams().id
+function OPSetList() {
   const [sets, setSets] = useState([])
 
   useEffect (() => {
     onSnapshot(query(collection(db, `/op/sets/sets`)), (snapshot) => {
       setSets(snapshot.docs.map(doc => ({...doc.data(), id: doc.id})))
     });
-  }, [id])
+  })
 
   return (
     <Container>
-      <div><h1>Sets List</h1></div>
-      <Row className='bg-Gray'>
+      <Row className='bg-Gray mt-2'>
         {(sets !== []) ? (
           sets.map((set) => (
             <Col md={6}>
@@ -48,4 +44,4 @@ function OPSet() {
 );
 }
 
-export default OPSet;
+export default OPSetList;

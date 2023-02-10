@@ -15,41 +15,49 @@ gc = gspread.service_account(filename='sheetsKey.json')
 
 def setCard(sh, sheet, set):
   ws = sh.worksheet(sheet)
-  card_n = ws.acell('B3').value
-  title = ws.acell('B1').value
+  card_n = ws.acell('C2').value
+  title = ws.acell('C1').value
   title_jp = ws.acell('A1').value
-  title_clean = ws.acell('B1').value.replace('.',' ').strip()
-  color_txt = ws.acell('B5').value
+  title_clean = ws.acell('C1').value.replace('.',' ').strip()
+  color_txt = ws.acell('C3').value
   color = color_txt.replace('Color',' ').strip().split('/')
   color_1 = color[0]
   color_2 = None
   if "/" in color_txt:
     color_2 = color[1]
-  card_type = ws.acell('B6').value.replace('Card Type',' ').strip()
-  rarity = ws.acell('B7').value.replace('Rarity',' ').strip()
-  cost = ws.acell('B8').value.replace('Cost/Life',' ')
+  card_type = ws.acell('C4').value
+  rarity = ws.acell('C5').value
+  cost = ws.acell('C6').value
   cost = int(cost)
-  power = ws.acell('B9').value.replace('Power',' ')
+  power = ws.acell('C7').value
   if power:
      if power != ' ':
       power = int(power)
-  types = ws.acell('B10').value.replace('Type',' ').strip().split('/')
-  types_jp = ws.acell('A12').value.replace('Type',' ').strip().split('/')
-  counter = ws.acell('B11').value.replace('Counter+',' ').strip()
+  types = ws.acell('C8').value
+  if types:
+    types = types.strip().split('/')
+  types_jp = ws.acell('A12').value
+  if types_jp:
+    types_jp = types_jp.strip().split('/')
+  counter = ws.acell('C9').value
   if counter:
      if counter != ' ':
       counter = int(counter)
-  attribute = ws.acell('B12').value.replace('Attribute',' ').strip()
-  notes = ws.acell('B13').value.replace('Notes',' ').strip()
-  effects_txt = ws.acell('B14').value[4:]
-  effects = effects_txt.replace('] ','[').replace(']. ','[').split('[')
-  effects = list(filter(None, effects))
+  attribute = ws.acell('C10').value
+  effects_txt = ws.acell('C11').value
+  effects = ""
+  if effects_txt:
+    effects = effects_txt.replace('] ','[').replace(']. ','[').split('[')
+    effects = list(filter(None, effects))
   effects_txt_jp = ws.acell('A14').value
-  effects_jp = effects_txt_jp.replace('】','【').split('【')
-  effects_jp = list(filter(None, effects_jp))
-  triggers_txt = ws.acell('B16').value
+  effects_jp = ""
+  if effects_txt_jp:
+    effects_jp = effects_txt_jp.replace('】','【').split('【')
+    effects_jp = list(filter(None, effects_jp))
+  triggers_txt = ws.acell('C12').value    
   triggers = ''
   if triggers_txt:
+    triggers_txt = triggers_txt.replace('[Trigger] ',' ')
     triggers = triggers_txt.replace('] ','[').replace(']. ','[').split('[')
     triggers = list(filter(None, triggers))
   triggers_jp_txt = ws.acell('A16').value
@@ -58,16 +66,16 @@ def setCard(sh, sheet, set):
     triggers_jp_txt = triggers_jp_txt.replace('【トリガー】 ',' ')
     triggers_jp_txt = triggers_jp_txt.replace('】','【').split('【')
     triggers_jp = list(filter(None, triggers_jp))
-  artist = ws.acell('A17').value
-  artist_P1 = ws.acell('A18').value
-  artist_P2 = ws.acell('A19').value
-  illust_type = ws.acell('B17').value
-  illust_type_P1 = ws.acell('B18').value
-  illust_type_P2 = ws.acell('B19').value
-  source = ws.acell('C17').value
-  source_P1 = ws.acell('C18').value
-  source_P2 = ws.acell('C19').value
-  regulations = ws.acell('A15').value
+  artist = ws.acell('F2').value
+  artist_P1 = ws.acell('F3').value
+  artist_P2 = ws.acell('F4').value
+  illust_type = ws.acell('D2').value
+  illust_type_P1 = ws.acell('D3').value
+  illust_type_P2 = ws.acell('D4').value
+  source = ws.acell('E2').value
+  source_P1 = ws.acell('E3').value
+  source_P2 = ws.acell('E4').value
+  regulations = ws.acell('C13').value
   if regulations:
     regulations = regulations.replace('Legal Regulations',' ')
   img = storage.child("sets").child(set).child("EN").child(f"{card_n}.png").get_url(None)
@@ -100,7 +108,6 @@ def setCard(sh, sheet, set):
     u'types_jp': types_jp,
     u'counter': counter,
     u'attribute': attribute,
-    u'notes': notes,
     u'effects_txt': effects_txt,u'effects': effects,
     u'triggers_txt': triggers_txt,u'triggers': triggers,
     u'triggers_jp_txt': triggers_jp_txt,u'triggers_jp': triggers_jp,
@@ -119,7 +126,7 @@ def setSet(set, start,end):
     setCard(sh, f'Sheet{i}', set)
     time.sleep(40)
 
-setSet('ST04', 1, 17)
+setSet('ST05', 1, 17)
 
 def testCard():
   color_txt = "ColorRed"
