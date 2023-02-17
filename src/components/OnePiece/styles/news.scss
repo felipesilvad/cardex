@@ -15,3 +15,25 @@
 .Selector {
   color: black!important;
 }
+
+.news_img {
+  width: -webkit-fill-available;
+  transition: 400ms;
+  border-radius: 0.2rem;
+}
+
+.news_img__gallery {
+  width: 50%;
+  padding: 0.1rem;
+  transition: 400ms;
+  @media only screen and (min-width: $lg) {
+    width: 25%;
+    padding: 0.1rem;
+  }
+}
+
+.other-news-txt {
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: bold;
+}

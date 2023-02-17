@@ -54,7 +54,7 @@ const OPSearchView = ({cd,addCard,getCardCount,removeCard,loading,showAA,setShow
             resetCardType={resetCardType} showAA={showAA} cards={cards} setColors={setColors}
             openCardModal={openCardModal} />
           ) : (
-            <OPSetCardTable cards={cards} />
+            <OPSetCardTable cards={cards} openCardModal={openCardModal} />
           ))
         ))}
         {(loading &&(

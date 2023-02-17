@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import {Form,Button,Row,Alert,Container,Col,Image} from "react-bootstrap"
-import { Link, useNavigate } from "react-router-dom"
+import React, { useState } from 'react'
+import {Form,Button,Row,Alert,Container,Col} from "react-bootstrap"
+import {useNavigate} from "react-router-dom"
 import {UserAuth} from '../../../../contexts/AuthContext'
 import {addDoc,collection} from "firebase/firestore";
 import db from '../../../../firebase';
+import { ref, uploadBytes,getDownloadURL } from "firebase/storage";
+import {storage} from '../../../../firebase';
 import draftToHtml from 'draftjs-to-html';
 import Select from 'react-select'
-
 import OPEditor from './OPEditor';
 
 const OPAddNews = () => {
@@ -14,10 +15,44 @@ const OPAddNews = () => {
   const [title, setTitle] = useState()
   const [content, setContent] = useState()
   const [error, setError] = useState()
+  const [tags, setTags] = useState()
+  const [newsDate, setNewsDate] = useState()
   const navigate = useNavigate()
-  const newDate = new Date()
-  const tags = [
+  const now = new Date()
+  const [selectedImage, setSelectedImage] = useState(null);
+  const storageRef = ref(storage, `newsCovers/${now}`);
+
+  const AddNews = () => {
+    const htmlContent = draftToHtml(content)
+    const contentSplited = htmlContent.split('|@|')
+
+    uploadBytes(storageRef, selectedImage).then(() => {
+      getDownloadURL(storageRef)
+      .then((url) => {
+        try{
+          addDoc(collection(db, "op/news/news"), {
+            title: title,
+            content: contentSplited,
+            tags: tags,
+            thumb: url,
+            postedBy: user.uid,
+            createdAt: new Date(newsDate.replace('-','/')),
+          })
+          navigate('/one-piece')
+        }catch (e) {
+          setError(e.message)
+          console.log(e.message)
+        }
+      })
+    })
+  }
+  
+  
+  const tagsOptions = [
+    { value: 'English', label: 'English' },
+    { value: 'Japanese', label: 'Japanese' },
     { value: 'Card Reveal', label: 'Card Reveal' },
+    { value: 'New Art', label: 'New Art' },
     { value: 'Leaks', label: 'Leaks' },
     { value: 'Product', label: 'Product' },
     { value: 'Event', label: 'Event' }
@@ -27,31 +62,11 @@ const OPAddNews = () => {
     setError('')
 
     if (content) {
-      const htmlContent = draftToHtml(content)
-      const contentSplited = htmlContent.split('/ADDCARD/')
-      const cardsOnContent = []
-      contentSplited.forEach((content, index) => {
-        if (content.includes('card_n=')) {
-          const cardStuff = content.split("<");
-          cardsOnContent.push(cardStuff[0])
-          contentSplited[index] = `/ADDCARD/${cardStuff[0]}/ADDCARD/`
-        }
-      })
-      console.log(contentSplited, cardsOnContent);
-
-      try{
-        addDoc(collection(db, "op/news/news"), {
-          title: title,
-          content: contentSplited,
-          cardsOnContent: cardsOnContent,
-          postedBy: user.uid,
-          createdAt: newDate,
-        })
-        navigate('/one-piece')
-      }catch (e) {
-        setError(e.message)
-        console.log(e.message)
-      }
+      if (selectedImage) {
+        if (newsDate) {
+          AddNews()
+        } else {setError('No Date')}
+      } else {setError('No Thumbnail')}
     } else {setError('No Content')}
   } 
 
@@ -64,19 +79,42 @@ const OPAddNews = () => {
           <Form.Group id="title">
             <Form.Label>Title</Form.Label>
             <Form.Control onChange={(e) => setTitle(e.target.value)} type="title" placeholder="Title" required />
+            <Row>
+              <Col>
+              <Select
+                isMulti
+                name="tags"
+                options={tagsOptions}
+                className="basic-multi-select Selector"
+                classNamePrefix="select"
+                placeholder="Tags"
+                onChange={(e) => setTags(e)}
+                isSearchable
+              />
+              </Col>
+              <Col>
+                <Form.Control
+                  type="date"
+                  name="duedate"
+                  placeholder="Due date"
+                  // value={date}
+                  onChange={(e) => setNewsDate(e.target.value)}
+                />
+              </Col>
+            </Row>
           </Form.Group>
-          <Select
-            isMulti
-            name="tags"
-            options={tags}
-            className="basic-multi-select Selector"
-            classNamePrefix="select"
-            isSearchable
-          />
+         
           <Form.Group id="content">
-            <code>To add card: /ADDCARD/card_n=OP01-001,alt_art=0/ADDCARD/</code>
+            <p>To add card: <code>/ADDCARD/card_n=OP01-001,art=0/ADDCARD/</code></p>
             <OPEditor content={content} setContent={setContent} />
           </Form.Group>
+          <input
+            type="file"
+            name="myImage"
+            onChange={(event) => {
+              setSelectedImage(event.target.files[0]);
+            }}
+          />
           <div className='m-2 text-center'>
             <Button className="bg-danger border-none" type="submit">
               Add News

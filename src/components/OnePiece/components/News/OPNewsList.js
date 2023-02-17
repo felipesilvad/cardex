@@ -3,6 +3,7 @@ import { query, collection, onSnapshot } from 'firebase/firestore';
 import db from '../../../../firebase';
 import {Link} from 'react-router-dom';
 import { Row, Col, Image, Container} from 'react-bootstrap';
+import OPNewsListItem from './OPNewsListItem';
 
 function OPNewsList() {
   const [news, setNews] = useState([])
@@ -17,13 +18,12 @@ function OPNewsList() {
     <Container>
       <div><h1>News</h1></div>
       {(news !== []) ? (
-          news.map((newItem) => (
-            <div>
-              <Link to={`/one-piece/news/${newItem.id}`}>
-                <h1>{newItem.title}</h1>
-              </Link>
-            </div>
-          ))
+          <Row>
+            {news.map((newItem) => (
+              <OPNewsListItem newItem={newItem} />
+            ))}
+          </Row>
+          
       ) : (
         <div class="d-flex justify-content-center">
           <div class="spinner-border" role="status">

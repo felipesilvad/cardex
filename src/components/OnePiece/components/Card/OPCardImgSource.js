@@ -6,13 +6,15 @@ function OPCardImgSource({img_src,set}) {
     <div className='img__src-bg'>
       {(img_src === "Main") ? (
           `Main Card Art from ${set}`
-      ) : ('')}
-      {(img_src === "Set") ? (
-        `Alternate Card Art from ${set}`
-      ) : ('')}
-      {(img_src === "Manga Rare") ? (
-        `Manga Rare Art from ${set}`
-      ) : ('')}
+      ) : (
+        (img_src === "Set") ? (
+          `Alternate Card Art from ${set}`
+        ) : (
+          (img_src === "Manga Rare") ? (
+            `Manga Rare Art from ${set}`
+          ) : (img_src)
+        )
+      )}
     </div>
 )}
 

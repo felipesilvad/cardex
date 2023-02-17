@@ -126,7 +126,7 @@ def setSet(set, start,end):
     setCard(sh, f'Sheet{i}', set)
     time.sleep(40)
 
-setSet('ST05', 1, 17)
+# setSet('ST05', 1, 17)
 
 def testCard():
   color_txt = "ColorRed"
@@ -137,3 +137,65 @@ def testCard():
 
   print(color[0])
 # testCard()
+
+def addNewArt(set, card, art):
+  artist = "Koushi Rokushiro"
+  illust_type = "Original"
+  source = "Tournament Pack Vol.2 -Winner-"
+  source_jp = ""
+  img = ""
+  img_jp = ""
+  if storage.child("sets").child(set).child("EN").child(f"{card}_P{art}.png"):
+    img = storage.child("sets").child(set).child("EN").child(f"{card}_P{art}.png").get_url(None)
+  if storage.child("sets").child(set).child("JP").child(f"{card}_P{art}.png"):
+    img_jp = storage.child("sets").child(set).child("JP").child(f"{card}_P{art}.png").get_url(None)
+
+  doc_ref = db.collection(u'op').document(u'cards').collection(u'cards').document(card)
+  if art == 1:
+    doc_ref.update({
+      u'artist_P1': artist,
+      u'illust_type_P1': illust_type,
+      u'source_P1': source,
+      u'source_P1_jp': source_jp,
+      u'img_P1': img,
+      u'img_P1_jp': img_jp,
+    })
+  if art == 2:
+    doc_ref.update({
+      u'artist_P2': artist,
+      u'illust_type_P2': illust_type,
+      u'source_P2': source,
+      u'source_P2_jp': source_jp,
+      u'img_P2': img,
+      u'img_P2_jp': img_jp,
+    })
+  if art == 3:
+    doc_ref.update({
+      u'artist_P3': artist,
+      u'illust_type_P3': illust_type,
+      u'source_P3': source,
+      u'source_P3_jp': source_jp,
+      u'img_P3': img,
+      u'img_P3_jp': img_jp,
+    })
+  if art == 4:
+    doc_ref.update({
+      u'artist_P4': artist,
+      u'illust_type_P4': illust_type,
+      u'source_P4': source,
+      u'source_P4_jp': source_jp,
+      u'img_P4': img,
+      u'img_P4_jp': img_jp,
+    })
+  if art == 5:
+    doc_ref.update({
+      u'artist_P5': artist,
+      u'illust_type_P5': illust_type,
+      u'source_P5': source,
+      u'source_P5_jp': source_jp,
+      u'img_P5': img,
+      u'img_P5_jp': img_jp,
+    })
+  print(card,f'_P{art}','Done')
+
+# addNewArt('ST04','ST04-011',2)

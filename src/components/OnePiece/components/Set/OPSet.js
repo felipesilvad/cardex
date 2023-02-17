@@ -6,6 +6,7 @@ import {Container, Button} from 'react-bootstrap';
 import {Form,} from 'react-bootstrap';
 import OPSetCardGallery from './OPSetCardGallery';
 import OPSetCardTable from './OPSetCardTable';
+import OPCardModal from '../Card/OPCardModal';
 
 
 function OPSet() {
@@ -14,6 +15,20 @@ function OPSet() {
   const [set, setSet] = useState([])
   const [view, setView] = useState('Gallery')
   const [showAA, setShowAA] = useState(false)
+
+  const [cardModal, setCardModal] = useState('')
+  const [cardImg, setCardImg] = useState('')
+  const [cardImgSrc, setCardImgSrc] = useState('')
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const openCardModal = (card,img,img_src) => {
+    setCardModal(card)
+    setCardImg(img)
+    setCardImgSrc(img_src)
+    handleShow()
+  }
 
   useEffect (() => {
     onSnapshot(query(collection(db, `/op/cards/cards`), where("set", "==", id)), (snapshot) => {
@@ -77,12 +92,12 @@ function OPSet() {
               className='d-flex justify-content-end aa-switch w-100' onClick={() => setShowAA(!showAA)} />
             </Form>
           </div>
-          <OPSetCardGallery cards={cards} showAA={showAA} />
+          <OPSetCardGallery cards={cards} showAA={showAA} openCardModal={openCardModal} />
         </div>
       ) : (
-        <OPSetCardTable cards={cards} />
+        <OPSetCardTable cards={cards} openCardModal={openCardModal} />
       ))}
-
+      <OPCardModal show={show} handleClose={handleClose} card={cardModal} img={cardImg} img_src={cardImgSrc} />
     </Container>
 );
 }
