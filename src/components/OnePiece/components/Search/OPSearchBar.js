@@ -14,7 +14,7 @@ function OPSearchBar() {
   }
 
   return (
-    <Form className='d-flex mx-2' onSubmit={handleSubmit}>
+    <Form className='d-flex mx-2 d-none d-sm-none d-md-block' onSubmit={handleSubmit}>
       <InputGroup>
         <Form.Control className='search-bar'
           placeholder="Search Card" 

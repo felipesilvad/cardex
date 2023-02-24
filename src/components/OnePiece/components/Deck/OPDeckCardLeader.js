@@ -22,7 +22,6 @@ const OPSetCardLeader = ({leader,getCardArt,getCardCount}) => {
     return (
       <>
         <div key={leader.card_n} className='deck__img-leader set__g_bg'>
-          <div className='gallery_add_circle gac__minus text-white'>{getCardCount(leader.card_n)}</div>
           {!getCardArt(leader.card_n)&&(
             <div onClick={() => openCardModal(leader, leader.img, leader.source)}>
               <Image className='set__card-img' src={leader.img} />

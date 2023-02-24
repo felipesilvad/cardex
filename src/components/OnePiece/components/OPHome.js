@@ -1,11 +1,14 @@
-import React  from 'react';
+import React from 'react';
 import { Container} from 'react-bootstrap';
+import OPHomeNews from './News/OPHomeNews';
 
 function OPHome() {
 
   return (
-    <Container style={{backgroundColor: `black`}}>
-      ONE PIECE OPHome ~~~~
+    <Container>
+      <div>
+        <OPHomeNews />
+      </div>
     </Container>
   );
 }

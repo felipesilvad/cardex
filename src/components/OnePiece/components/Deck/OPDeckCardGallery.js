@@ -24,7 +24,9 @@ const OPSetCardGallery = ({cards,getCardArt,getCardCount}) => {
         <div className='d-flex flex-wrap'>
           {cards.map((card) => (
             <div key={card.card_n} className='set__img set__g_bg'>
-              <div className='gallery_add_circle gac__minus text-white'>{getCardCount(card.card_n)}</div>
+              <div className='d-flex justify-content-center'>
+                <div className='gallery_add_circle gac__minus text-white'>{getCardCount(card.card_n)}</div>
+              </div>
               {!getCardArt(card.card_n)&&(
                 <div onClick={() => openCardModal(card, card.img, card.source)}>
                   <Image className='set__card-img' src={card.img} />

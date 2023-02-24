@@ -52,7 +52,6 @@ const OPAddNews = () => {
     { value: 'English', label: 'English' },
     { value: 'Japanese', label: 'Japanese' },
     { value: 'Card Reveal', label: 'Card Reveal' },
-    { value: 'New Art', label: 'New Art' },
     { value: 'Leaks', label: 'Leaks' },
     { value: 'Product', label: 'Product' },
     { value: 'Event', label: 'Event' }
@@ -106,6 +105,7 @@ const OPAddNews = () => {
          
           <Form.Group id="content">
             <p>To add card: <code>/ADDCARD/card_n=OP01-001,art=0/ADDCARD/</code></p>
+            <p>full width image width: -webkit-fill-available</p>
             <OPEditor content={content} setContent={setContent} />
           </Form.Group>
           <input

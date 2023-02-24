@@ -29,6 +29,7 @@ function OPHeader() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="">
             <Nav.Link className='header__nl' ><Link className='nav-link' to="/one-piece">Home</Link></Nav.Link>
+            <Nav.Link className='header__nl' ><Link className='nav-link' to="/one-piece/news">News</Link></Nav.Link>
             <Nav.Link className='header__nl' ><Link className='nav-link' to="/one-piece/set">Sets</Link></Nav.Link>
             <Nav.Link className='header__nl' ><Link className='nav-link' to="/one-piece/search">Search</Link></Nav.Link>
             <Nav.Link className='header__nl' ><Link className='nav-link' to="/one-piece/decks">Decks</Link></Nav.Link>

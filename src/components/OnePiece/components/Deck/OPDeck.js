@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { doc, onSnapshot, query, collection, where } from 'firebase/firestore';
+import { doc, onSnapshot, query, collection } from 'firebase/firestore';
 import db from '../../../../firebase';
 import {useParams} from 'react-router-dom';
-import {Container, Row,Col, Image} from 'react-bootstrap';
+import {Container, Row,Col} from 'react-bootstrap';
 import  OPDeckCreatedBy from './OPDeckCreatedBy'
 import OPCostChart from './Charts/OPCostChart';
 import OPColorChart from './Charts/OPColorChart';
@@ -62,12 +62,12 @@ function OPDeck() {
               <OPTypeChart deckCards={deckCards} />
             )}
           </Col>
-          <Col>
+          <Col className='d-none d-md-block'>
             {deckCards&&(
               <OPColorChart deckCards={deckCards} />
             )}
           </Col>
-          <Col>
+          <Col className='d-none d-md-block'>
             {deckCards&&(
               <OPCostChart deckCards={deckCards} />
             )}
@@ -81,7 +81,7 @@ function OPDeck() {
         </Col>
         <Col md={9}>
           {!!uniqueDeckCards&&(
-            <OPDeckCardGallery cards={uniqueDeckCards} getCardCount={getCardCount} getCardArt={getCardArt} />
+            <OPDeckCardGallery cards={uniqueDeckCards.sort((a,b) => (a.cost - b.cost))} getCardCount={getCardCount} getCardArt={getCardArt} />
           )}
         </Col>
       </Row>

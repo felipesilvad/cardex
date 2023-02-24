@@ -36,10 +36,11 @@ const OPNewsContent = ({content, cards}) => {
       </div>
     )
   } else {
-    return (
-      <div dangerouslySetInnerHTML={{ __html: content}}>
-      </div>
-    )
+
+      return (
+        <div className='' dangerouslySetInnerHTML={{ __html: content}}></div>
+      )
+    
   }
 }
 
