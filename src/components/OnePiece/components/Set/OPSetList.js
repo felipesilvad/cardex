@@ -24,7 +24,12 @@ function OPSetList() {
                   <div className='mt-2'>
                     <span className='card__field d-flex set-list__txt'>
                       <h4>{set.id}{' - '}</h4>
-                      <h3 className='mx-1 mb-1'>{set.title}</h3>
+                      <h3 className='mx-1 mb-1 d-xs-block d-sm-block d-md-none'>{
+                        (set.title.length > 25) ? (
+                          <>{set.title.substring(0,23)}...</>
+                        ) : (set.title)
+                      }</h3>
+                      <h3 className='mx-1 mb-1 d-none d-md-block'>{set.title}</h3>
                     </span>
                   </div>
                   <Image className='set-list_img' src={set.img_cut} />

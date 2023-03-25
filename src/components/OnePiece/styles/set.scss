@@ -13,7 +13,19 @@
   transition: 400ms;
 }
 
-
+.table-link {
+  border-color: inherit!important;
+  border-style: solid!important;
+  border-width: 0!important;
+  display: table-row!important;
+  vertical-align: inherit!important;
+  border: 0.1rem solid $light!important;
+  color: white;
+}
+.table-link:hover{
+  background-color: lighten($gray, 5%)!important;
+  color: white;
+}
 
 .set-list_img {
   width: -webkit-fill-available;
@@ -61,12 +73,6 @@
   border-radius: 1rem;
 }
 
-.set__table tr{
-  border: 0.1rem solid $light;
-}
-.set__table tr:hover{
-  background-color: lighten($gray, 5%);
-}
 .set__table td{
   padding: 0.25rem;
 }
